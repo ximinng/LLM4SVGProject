@@ -1,6 +1,6 @@
-@inproceedings{author20XXtitle,
-  title={Please cite me},
-  author={Author, First and Author, Second and Author, Third},
-  booktitle={arXiv preprint},
-  year={20XX}
+@article{xing2024llm4svg,
+  title={Empowering LLMs to Understand and Generate Complex Vector Graphics},
+  author={Xing, Ximing and Hu, Juncheng and Liang, Guotao and Zhang, Jing and Xu, Dong and Yu, Qian},
+  booktitle={arXiv preprint: 2412.11102},
+  year={2024}
 }
