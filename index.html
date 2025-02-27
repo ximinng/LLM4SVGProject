@@ -78,26 +78,41 @@
         <!-- authors -->
         <div class="row gy-2">
           <div class="col-12 col-md-2">
-            <a class="link" href="https://ximinng.github.io">Ximing Xing</a><sup>1</sup>
+            <a class="link" href="https://ximinng.github.io">Ximing Xing</a
+            ><sup>1</sup>
           </div>
           <div class="col-12 col-md-2">
-            <a class="link" href="https://hjc-owo.github.io">Juncheng Hu</a><sup>1</sup>
+            <a class="link" href="https://hjc-owo.github.io">Juncheng Hu</a
+            ><sup>1</sup>
           </div>
           <div class="col-12 col-md-2">Guotao Liang<sup>1</sup></div>
           <div class="col-12 col-md-2">
-            <a class="link" href="https://scholar.google.ch/citations?user=XtwOoQgAAAAJ">Jing Zhang</a><sup>1</sup>
+            <a
+              class="link"
+              href="https://scholar.google.ch/citations?user=XtwOoQgAAAAJ"
+              >Jing Zhang</a
+            ><sup>1</sup>
           </div>
           <div class="col-12 col-md-2">
-            <a class="link" href="https://scholar.google.com.sg/citations?user=7Hdu5k4AAAAJ">Dong Xu</a><sup>2</sup>
+            <a
+              class="link"
+              href="https://scholar.google.com.sg/citations?user=7Hdu5k4AAAAJ"
+              >Dong Xu</a
+            ><sup>2</sup>
           </div>
           <div class="col-12 col-md-2">
-            <a class="link" href="https://scholar.google.com/citations?user=mmm90qgAAAAJ">Qian Yu</a><sup>1</sup>
+            <a
+              class="link"
+              href="https://scholar.google.com/citations?user=mmm90qgAAAAJ"
+              >Qian Yu</a
+            ><sup>1</sup>
           </div>
         </div>
         <!-- author organization -->
         <div class="row mt-3">
           <div class="col-12">
-            <sup>1</sup>Beihang University &nbsp;&nbsp;<sup>2</sup>The University of Hong Kong
+            <sup>1</sup>Beihang University &nbsp;&nbsp;<sup>2</sup>The
+            University of Hong Kong
           </div>
         </div>
       </div>
@@ -132,21 +147,32 @@
       <!-- Features -->
       <div class="card border-0">
         <div class="card-body x-gradient-block">
-          <h2 class="card-title text-center" style="font-size: 2rem; margin-bottom: 1.5rem;">
+          <h2
+            class="card-title text-center"
+            style="font-size: 2rem; margin-bottom: 1.5rem"
+          >
             ✨ Highlights
           </h2>
           <hr class="body-hr" />
           <ul class="list-unstyled">
             <li class="mb-2">
-                <strong>SVGX-Dataset:</strong> Collected dataset covering <b>pretrained models, supervised fine-tuning data, and preference data</b>.
+              <strong>SVGX-Dataset:</strong> Collected dataset covering
+              <b
+                >pretrained models, supervised fine-tuning data, and preference
+                data</b
+              >.
             </li>
             <li class="mb-2">
-                <strong>Diverse Model Support:</strong> Seamlessly integrates <b>deepseek-r1-distill-model, Qwen2/Qwen2.5, Llama 3</b>, and more, providing flexibility for various AI applications.
+              <strong>Diverse Model Support:</strong> Seamlessly integrates
+              <b>deepseek-r1-distill-model, Qwen2/Qwen2.5, Llama 3</b>, and
+              more, providing flexibility for various AI applications.
             </li>
             <li>
-                <strong>Optimized Inference Speed:</strong> Leverages <b>VLLM</b> to deliver significantly faster inference, enhancing efficiency and scalability.
+              <strong>Optimized Inference Speed:</strong> Leverages
+              <b>VLLM</b> to deliver significantly faster inference, enhancing
+              efficiency and scalability.
             </li>
-        </ul>
+          </ul>
         </div>
       </div>
       <br />
@@ -201,8 +227,10 @@
             generation. While LLMs encode partial knowledge of SVG data from web
             pages during training, recent findings suggest that semantically
             ambiguous and tokenized representations within
-            <b>LLMs may result in hallucinations in vector primitive predictions</b>.
-            Additionally, LLM training typically lacks modeling and
+            <b
+              >LLMs may result in hallucinations in vector primitive
+              predictions</b
+            >. Additionally, LLM training typically lacks modeling and
             understanding of the rendering sequence of vector paths, which can
             lead to occlusion between output vector primitives. In this paper,
             we present <b style="color: #7e57c2">LLM4SVG</b>, an initial yet
@@ -342,20 +370,161 @@
         <div class="card-body">
           <h2 class="card-title card-title-margin">SVG Generation | Gallery</h2>
           <hr class="body-hr" />
-          <!--            <p class="card-text">-->
-          <!--                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo-->
-          <!--                dapibus sit amet.-->
-          <!--            </p>-->
-          <div class="text-center">
-            <figure class="figure">
-              <img
-                src="assets/gallery.png"
-                class="figure-img img-fluid rounded"
-                alt="method"
-              />
-              <!--                    <figcaption class="figure-caption">A caption for the above image.</figcaption>-->
-            </figure>
+          <div class="container-fluid">
+            <div class="row g-3" id="gallery-grid">
+              <!-- Gallery items will be dynamically added here -->
+            </div>
           </div>
+
+          <!-- Modal for preview -->
+          <div
+            class="modal fade"
+            id="previewModal"
+            tabindex="-1"
+            aria-labelledby="previewModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="previewModalLabel">
+                    SVG Preview
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div id="preview-image" class="text-center"></div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="svg-code-container">
+                        <code id="svg-code" class="language-markup"></code>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-12">
+                      <p id="preview-caption" class="text-center"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <style>
+            .gallery-item {
+              cursor: pointer;
+              transition: transform 0.2s;
+              margin-bottom: 1rem;
+            }
+            .gallery-item:hover {
+              transform: scale(1.05);
+            }
+            .gallery-item img {
+              width: 100%;
+              height: 120px; /* 减小高度以适应更小的宽度 */
+              object-fit: contain;
+              border-radius: 4px;
+            }
+            #preview-image img {
+              max-width: 100%;
+              height: auto;
+            }
+            .svg-code-container {
+              background: #f8f9fa;
+              padding: 1rem;
+              border-radius: 4px;
+              max-height: 500px;
+              overflow-y: auto;
+            }
+            #svg-code {
+              white-space: pre-wrap;
+              word-wrap: break-word;
+              font-family: monospace;
+              font-size: 0.9rem;
+              color: #333;
+              display: block;
+            }
+          </style>
+
+          <script>
+            // Function to load gallery data
+            async function loadGalleryData() {
+              const galleryGrid = document.getElementById("gallery-grid");
+
+              for (let i = 1; i <= 109; i++) {
+                try {
+                  const svgResponse = await fetch(
+                    `gallery/svg/LLM4SVG_${i}.svg`
+                  );
+                  if (!svgResponse.ok) continue;
+
+                  const captionResponse = await fetch(
+                    `gallery/captions/caption_${i}.txt`
+                  );
+                  if (!captionResponse.ok) continue;
+
+                  const svgText = await svgResponse.text();
+                  const caption = await captionResponse.text();
+
+                  const col = document.createElement("div");
+                  col.className = "col-1.2"; // 设置为10列布局 (12/10 = 1.2)
+                  col.style.flex = "0 0 10%"; // 强制每列宽度为10%
+                  col.style.maxWidth = "10%"; // 确保最大宽度也是10%
+                  col.innerHTML = `
+                    <div class="gallery-item" data-svg="${encodeURIComponent(
+                      svgText
+                    )}" data-caption="${encodeURIComponent(caption)}">
+                      <img src="gallery/svg/LLM4SVG_${i}.svg" alt="SVG ${i}" class="img-fluid">
+                    </div>
+                  `;
+
+                  galleryGrid.appendChild(col);
+                } catch (error) {
+                  console.error(`Error loading item ${i}:`, error);
+                }
+              }
+            }
+
+            // Function to show preview
+            function showPreview(svgText, caption) {
+              const previewImage = document.getElementById("preview-image");
+              const svgCode = document.getElementById("svg-code");
+              const previewCaption = document.getElementById("preview-caption");
+
+              previewImage.innerHTML = svgText;
+              svgCode.textContent = svgText;
+              previewCaption.textContent = caption;
+
+              const modal = new bootstrap.Modal(
+                document.getElementById("previewModal")
+              );
+              modal.show();
+            }
+
+            // Add event listeners
+            document.addEventListener("DOMContentLoaded", () => {
+              loadGalleryData();
+
+              document
+                .getElementById("gallery-grid")
+                .addEventListener("click", (e) => {
+                  const item = e.target.closest(".gallery-item");
+                  if (item) {
+                    const svgText = decodeURIComponent(item.dataset.svg);
+                    const caption = decodeURIComponent(item.dataset.caption);
+                    showPreview(svgText, caption);
+                  }
+                });
+            });
+          </script>
         </div>
       </div>
       <br />
@@ -417,20 +586,22 @@
                 <b style="color: #7e57c2">LLM4SVG</b> and State-of-the-Art SVG
                 Generation Methods, including optimization-based and LLM-based
                 methods. <br />
-                <p style="text-align: left">Figure above illustrates the visual quality of SVG generation
-                methods, comparing both optimization-based and LLM-based
-                approaches. It is evident that our method outperforms other
-                LLM-based methods in terms of the completeness of the SVG
-                generation, the selection and placement of primitives, and the
-                semantic richness conveyed by the vector graphics.
-                Optimization-based methods use samples from the Latent Diffusion
-                Model as supervision during the SVG generation process.
-                Consequently, these methods normally employ a large number of
-                overlapping and interwoven primitives to closely approximate the
-                realistic samples. This often lead to excessive stroke
-                redundancy, and the individual shapes of the primitives may
-                appear irregular when viewed in isolation, making them less
-                practical for use in real-life applications.</p>
+                <p style="text-align: left">
+                  Figure above illustrates the visual quality of SVG generation
+                  methods, comparing both optimization-based and LLM-based
+                  approaches. It is evident that our method outperforms other
+                  LLM-based methods in terms of the completeness of the SVG
+                  generation, the selection and placement of primitives, and the
+                  semantic richness conveyed by the vector graphics.
+                  Optimization-based methods use samples from the Latent
+                  Diffusion Model as supervision during the SVG generation
+                  process. Consequently, these methods normally employ a large
+                  number of overlapping and interwoven primitives to closely
+                  approximate the realistic samples. This often lead to
+                  excessive stroke redundancy, and the individual shapes of the
+                  primitives may appear irregular when viewed in isolation,
+                  making them less practical for use in real-life applications.
+                </p>
               </figcaption>
             </figure>
           </div>
