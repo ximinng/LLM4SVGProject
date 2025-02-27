@@ -370,8 +370,16 @@
         <div class="card-body">
           <h2 class="card-title card-title-margin">SVG Generation | Gallery</h2>
           <hr class="body-hr" />
-          <div class="container-fluid">
-            <div class="row g-3" id="gallery-grid">
+          <div class="container-fluid px-4">
+            <!-- Loading spinner -->
+            <div id="loading-spinner" class="text-center my-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <p class="mt-2">Loading gallery...</p>
+            </div>
+
+            <div class="row g-4" id="gallery-grid">
               <!-- Gallery items will be dynamically added here -->
             </div>
           </div>
@@ -384,9 +392,9 @@
             aria-labelledby="previewModalLabel"
             aria-hidden="true"
           >
-            <div class="modal-dialog modal-xl">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header border-bottom-0">
                   <h5 class="modal-title" id="previewModalLabel">
                     SVG Preview
                   </h5>
@@ -398,19 +406,33 @@
                   ></button>
                 </div>
                 <div class="modal-body">
-                  <div class="row">
+                  <div class="row g-4">
                     <div class="col-md-6">
-                      <div id="preview-image" class="text-center"></div>
+                      <div
+                        id="preview-image"
+                        class="text-center preview-card"
+                      ></div>
                     </div>
                     <div class="col-md-6">
                       <div class="svg-code-container">
+                        <div class="code-header">
+                          <span>SVG Source Code</span>
+                          <button
+                            class="btn btn-sm btn-outline-primary copy-btn"
+                            onclick="copySVGCode()"
+                          >
+                            <i class="bi bi-clipboard"></i> Copy
+                          </button>
+                        </div>
                         <code id="svg-code" class="language-markup"></code>
                       </div>
                     </div>
                   </div>
-                  <div class="row mt-3">
+                  <div class="row mt-4">
                     <div class="col-12">
-                      <p id="preview-caption" class="text-center"></p>
+                      <div class="caption-card">
+                        <p id="preview-caption" class="text-center mb-0"></p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -421,75 +443,159 @@
           <style>
             .gallery-item {
               cursor: pointer;
-              transition: transform 0.2s;
-              margin-bottom: 1rem;
+              transition: all 0.3s ease;
+              background: white;
+              border-radius: 8px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              overflow: hidden;
+              height: 100%;
             }
             .gallery-item:hover {
-              transform: scale(1.05);
+              transform: translateY(-5px);
+              box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             }
             .gallery-item img {
               width: 100%;
-              height: 120px; /* 减小高度以适应更小的宽度 */
+              height: 120px;
               object-fit: contain;
-              border-radius: 4px;
+              padding: 12px;
+              background: #f8f9fa;
+              border-radius: 8px 8px 0 0;
             }
-            #preview-image img {
+
+            /* Modal styles */
+            .modal-content {
+              border: none;
+              border-radius: 12px;
+              box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            }
+            .preview-card {
+              background: white;
+              border-radius: 8px;
+              padding: 20px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            .preview-card img {
               max-width: 100%;
               height: auto;
+              max-height: 400px;
             }
             .svg-code-container {
               background: #f8f9fa;
-              padding: 1rem;
-              border-radius: 4px;
-              max-height: 500px;
-              overflow-y: auto;
+              border-radius: 8px;
+              overflow: hidden;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            .code-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 12px 16px;
+              background: #e9ecef;
+              border-bottom: 1px solid #dee2e6;
+            }
+            .copy-btn {
+              padding: 4px 12px;
+              font-size: 0.875rem;
+            }
+            .copy-btn i {
+              margin-right: 4px;
             }
             #svg-code {
               white-space: pre-wrap;
               word-wrap: break-word;
-              font-family: monospace;
+              font-family: "Monaco", "Menlo", "Ubuntu Mono", "Consolas",
+                monospace;
               font-size: 0.9rem;
               color: #333;
               display: block;
+              padding: 16px;
+              max-height: 400px;
+              overflow-y: auto;
+            }
+            .caption-card {
+              background: white;
+              border-radius: 8px;
+              padding: 16px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            #loading-spinner {
+              min-height: 200px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            }
+
+            /* Scrollbar styling */
+            #svg-code::-webkit-scrollbar {
+              width: 8px;
+            }
+            #svg-code::-webkit-scrollbar-track {
+              background: #f1f1f1;
+              border-radius: 4px;
+            }
+            #svg-code::-webkit-scrollbar-thumb {
+              background: #888;
+              border-radius: 4px;
+            }
+            #svg-code::-webkit-scrollbar-thumb:hover {
+              background: #555;
             }
           </style>
 
           <script>
+            // Function to copy SVG code
+            function copySVGCode() {
+              const svgCode = document.getElementById("svg-code").textContent;
+              navigator.clipboard.writeText(svgCode).then(() => {
+                const copyBtn = document.querySelector(".copy-btn");
+                copyBtn.innerHTML = '<i class="bi bi-check2"></i> Copied!';
+                setTimeout(() => {
+                  copyBtn.innerHTML = '<i class="bi bi-clipboard"></i> Copy';
+                }, 2000);
+              });
+            }
+
             // Function to load gallery data
             async function loadGalleryData() {
               const galleryGrid = document.getElementById("gallery-grid");
+              const loadingSpinner = document.getElementById("loading-spinner");
 
-              for (let i = 1; i <= 109; i++) {
-                try {
-                  const svgResponse = await fetch(
-                    `gallery/svg/LLM4SVG_${i}.svg`
-                  );
-                  if (!svgResponse.ok) continue;
+              try {
+                for (let i = 1; i <= 109; i++) {
+                  try {
+                    const svgResponse = await fetch(
+                      `gallery/svg/LLM4SVG_${i}.svg`
+                    );
+                    if (!svgResponse.ok) continue;
 
-                  const captionResponse = await fetch(
-                    `gallery/captions/caption_${i}.txt`
-                  );
-                  if (!captionResponse.ok) continue;
+                    const captionResponse = await fetch(
+                      `gallery/captions/caption_${i}.txt`
+                    );
+                    if (!captionResponse.ok) continue;
 
-                  const svgText = await svgResponse.text();
-                  const caption = await captionResponse.text();
+                    const svgText = await svgResponse.text();
+                    const caption = await captionResponse.text();
 
-                  const col = document.createElement("div");
-                  col.className = "col-1.2"; // 设置为10列布局 (12/10 = 1.2)
-                  col.style.flex = "0 0 10%"; // 强制每列宽度为10%
-                  col.style.maxWidth = "10%"; // 确保最大宽度也是10%
-                  col.innerHTML = `
-                    <div class="gallery-item" data-svg="${encodeURIComponent(
-                      svgText
-                    )}" data-caption="${encodeURIComponent(caption)}">
-                      <img src="gallery/svg/LLM4SVG_${i}.svg" alt="SVG ${i}" class="img-fluid">
-                    </div>
-                  `;
+                    const col = document.createElement("div");
+                    col.style.flex = "0 0 10%";
+                    col.style.maxWidth = "10%";
+                    col.innerHTML = `
+                      <div class="gallery-item" data-svg="${encodeURIComponent(
+                        svgText
+                      )}" data-caption="${encodeURIComponent(caption)}">
+                        <img src="gallery/svg/LLM4SVG_${i}.svg" alt="SVG ${i}" class="img-fluid">
+                      </div>
+                    `;
 
-                  galleryGrid.appendChild(col);
-                } catch (error) {
-                  console.error(`Error loading item ${i}:`, error);
+                    galleryGrid.appendChild(col);
+                  } catch (error) {
+                    console.error(`Error loading item ${i}:`, error);
+                  }
                 }
+              } finally {
+                loadingSpinner.style.display = "none";
               }
             }
 
