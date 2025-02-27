@@ -407,27 +407,33 @@
                 </div>
                 <div class="modal-body">
                   <div class="row g-4">
-                    <div class="col-md-6 position-relative">
-                      <div
-                        id="preview-image"
-                        class="text-center preview-card"
-                      ></div>
-                      <!-- Navigation buttons -->
-                      <button
-                        class="nav-btn prev-btn"
-                        onclick="navigateGallery(-1)"
-                      >
-                        <i class="bi bi-chevron-left"></i>
-                      </button>
-                      <button
-                        class="nav-btn next-btn"
-                        onclick="navigateGallery(1)"
-                      >
-                        <i class="bi bi-chevron-right"></i>
-                      </button>
+                    <div class="col-12 col-md-6 position-relative">
+                      <div class="preview-section">
+                        <div class="preview-card">
+                          <div class="preview-card-inner">
+                            <div id="preview-image"></div>
+                          </div>
+                        </div>
+                        <!-- Navigation buttons -->
+                        <button
+                          class="nav-btn prev-btn"
+                          onclick="navigateGallery(-1)"
+                        >
+                          <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <button
+                          class="nav-btn next-btn"
+                          onclick="navigateGallery(1)"
+                        >
+                          <i class="bi bi-chevron-right"></i>
+                        </button>
+                        <div class="caption-card mt-3">
+                          <p id="preview-caption" class="text-center mb-0"></p>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="svg-code-container">
+                    <div class="col-12 col-md-6">
+                      <div class="svg-code-container h-100">
                         <div class="code-header">
                           <span>SVG Source Code</span>
                           <button
@@ -438,13 +444,6 @@
                           </button>
                         </div>
                         <code id="svg-code" class="language-markup"></code>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mt-4">
-                    <div class="col-12">
-                      <div class="caption-card">
-                        <p id="preview-caption" class="text-center mb-0"></p>
                       </div>
                     </div>
                   </div>
@@ -461,19 +460,24 @@
               border-radius: 8px;
               box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
               overflow: hidden;
-              height: 100%;
+              height: 0;
+              padding-bottom: 100%; /* 使容器保持1:1的宽高比 */
+              position: relative;
             }
             .gallery-item:hover {
               transform: translateY(-5px);
               box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             }
             .gallery-item img {
+              position: absolute;
+              top: 0;
+              left: 0;
               width: 100%;
-              height: 120px;
+              height: 100%;
               object-fit: contain;
               padding: 12px;
               background: #f8f9fa;
-              border-radius: 8px 8px 0 0;
+              border-radius: 8px;
             }
 
             /* Navigation buttons */
@@ -518,6 +522,11 @@
               border-radius: 12px;
               box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
             }
+            .preview-section {
+              display: flex;
+              flex-direction: column;
+              height: 100%;
+            }
             .preview-card {
               background: white;
               border-radius: 8px;
@@ -526,23 +535,40 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              height: 540px; /* 500 + padding */
+              position: relative;
+              width: 100%;
+              padding-bottom: 100%; /* 保持1:1的宽高比 */
+            }
+            .preview-card-inner {
+              position: absolute;
+              top: 20px;
+              left: 20px;
+              right: 20px;
+              bottom: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
             }
             .preview-card svg {
-              width: 500px;
-              height: 500px;
+              max-width: 100%;
+              max-height: 100%;
+              width: auto;
+              height: auto;
               object-fit: contain;
             }
             .preview-card img {
-              width: 500px;
-              height: 500px;
+              max-width: 100%;
+              max-height: 100%;
+              width: auto;
+              height: auto;
               object-fit: contain;
             }
 
-            /* 添加一个容器来确保SVG始终保持在500x500的范围内 */
+            /* 修改预览容器样式 */
             #preview-image {
-              width: 500px;
-              height: 500px;
+              position: absolute;
+              width: 100%;
+              height: 100%;
               display: flex;
               align-items: center;
               justify-content: center;
@@ -553,6 +579,8 @@
               border-radius: 8px;
               overflow: hidden;
               box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              display: flex;
+              flex-direction: column;
             }
             .code-header {
               display: flex;
@@ -578,21 +606,49 @@
               color: #333;
               display: block;
               padding: 16px;
-              height: 400px;
+              flex-grow: 1;
               overflow-y: auto;
+              min-height: 200px;
             }
             .caption-card {
               background: white;
               border-radius: 8px;
               padding: 16px;
               box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin-top: 1rem;
             }
-            #loading-spinner {
-              min-height: 200px;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
+
+            /* 响应式调整 */
+            @media (max-width: 767px) {
+              .modal-body {
+                padding: 1rem;
+              }
+              .preview-section {
+                margin-bottom: 1rem;
+              }
+              #svg-code {
+                height: 150px; /* 在手机上减小高度 */
+              }
+              .svg-code-container {
+                max-height: 200px; /* 限制手机上的最大高度 */
+              }
+            }
+            @media (min-width: 768px) {
+              .modal-dialog {
+                max-width: 90%;
+                margin: 1.75rem auto;
+              }
+              .preview-section {
+                height: auto;
+                max-height: none;
+              }
+              .svg-code-container {
+                height: auto;
+                max-height: 650px; /* 限制桌面端的最大高度 */
+              }
+              #svg-code {
+                height: 600px; /* 在桌面端设置合适的高度 */
+              }
             }
 
             /* Scrollbar styling */
@@ -609,6 +665,19 @@
             }
             #svg-code::-webkit-scrollbar-thumb:hover {
               background: #555;
+            }
+
+            /* 添加响应式布局样式 */
+            .gallery-col {
+              flex: 0 0 16.666667%; /* 在手机上每行6个 */
+              max-width: 16.666667%;
+              padding: 0.5rem;
+            }
+            @media (min-width: 768px) {
+              .gallery-col {
+                flex: 0 0 10%; /* 在大屏幕上每行10个 */
+                max-width: 10%;
+              }
             }
           </style>
 
@@ -637,22 +706,53 @@
               if (item) {
                 const svgText = decodeURIComponent(item.dataset.svg);
                 const caption = decodeURIComponent(item.dataset.caption);
-                updatePreview(svgText, caption);
+                showPreview(svgText, caption, item);
               }
             }
 
-            // Function to update preview content
-            function updatePreview(svgText, caption) {
+            // Function to show preview
+            function showPreview(svgText, caption, clickedItem) {
+              currentImageIndex = Array.from(galleryItems).indexOf(clickedItem);
+
+              // 在显示modal前清除旧内容
               const previewImage = document.getElementById("preview-image");
               const svgCode = document.getElementById("svg-code");
               const previewCaption = document.getElementById("preview-caption");
 
-              // 修改SVG的宽高属性
+              // 清除旧内容
+              previewImage.innerHTML = "";
+              svgCode.textContent = svgText;
+              previewCaption.textContent = caption;
+
+              const modal = new bootstrap.Modal(
+                document.getElementById("previewModal")
+              );
+              const modalElement = document.getElementById("previewModal");
+
+              // 在modal开始显示时就准备更新内容
+              modalElement.addEventListener(
+                "show.bs.modal",
+                function onModalShow() {
+                  // 开始准备SVG
+                  prepareSvgForPreview(svgText);
+                  modalElement.removeEventListener(
+                    "show.bs.modal",
+                    onModalShow
+                  );
+                }
+              );
+
+              modal.show();
+            }
+
+            // 新增函数：准备SVG预览
+            function prepareSvgForPreview(svgText) {
               const tempDiv = document.createElement("div");
               tempDiv.innerHTML = svgText;
               const svgElement = tempDiv.querySelector("svg");
+
               if (svgElement) {
-                // 获取原始尺寸
+                // 先设置viewBox
                 const originalWidth = parseFloat(
                   svgElement.getAttribute("width") ||
                     svgElement.width.baseVal.value
@@ -662,21 +762,6 @@
                     svgElement.height.baseVal.value
                 );
 
-                // 计算缩放比例
-                const scale = Math.min(
-                  500 / originalWidth,
-                  500 / originalHeight
-                );
-                const newWidth = originalWidth * scale;
-                const newHeight = originalHeight * scale;
-
-                // 设置新的尺寸
-                svgElement.setAttribute("width", newWidth);
-                svgElement.setAttribute("height", newHeight);
-                svgElement.style.width = `${newWidth}px`;
-                svgElement.style.height = `${newHeight}px`;
-
-                // 添加viewBox以保持比例
                 if (!svgElement.getAttribute("viewBox")) {
                   svgElement.setAttribute(
                     "viewBox",
@@ -684,24 +769,64 @@
                   );
                 }
 
-                previewImage.innerHTML = tempDiv.innerHTML;
-              } else {
-                previewImage.innerHTML = svgText;
-              }
+                // 设置初始样式
+                svgElement.style.maxWidth = "100%";
+                svgElement.style.maxHeight = "100%";
+                svgElement.style.width = "auto";
+                svgElement.style.height = "auto";
 
-              svgCode.textContent = svgText;
-              previewCaption.textContent = caption;
+                document.getElementById("preview-image").innerHTML =
+                  tempDiv.innerHTML;
+              }
             }
 
-            // Function to show preview
-            function showPreview(svgText, caption, clickedItem) {
-              updatePreview(svgText, caption);
-              currentImageIndex = Array.from(galleryItems).indexOf(clickedItem);
+            // Function to update preview content
+            function updatePreview(svgText, caption) {
+              const previewImage = document.getElementById("preview-image");
+              const svgCode = document.getElementById("svg-code");
+              const previewCaption = document.getElementById("preview-caption");
 
-              const modal = new bootstrap.Modal(
-                document.getElementById("previewModal")
-              );
-              modal.show();
+              // 更新文本内容
+              svgCode.textContent = svgText;
+              previewCaption.textContent = caption;
+
+              // 更新SVG
+              requestAnimationFrame(() => {
+                const previewCard = document.querySelector(
+                  ".preview-card-inner"
+                );
+                const previewRect = previewCard.getBoundingClientRect();
+                const maxPreviewSize = Math.min(
+                  previewRect.width,
+                  previewRect.height
+                );
+
+                const svgElement = previewImage.querySelector("svg");
+                if (svgElement) {
+                  const originalWidth = parseFloat(
+                    svgElement.getAttribute("width") ||
+                      svgElement.width.baseVal.value
+                  );
+                  const originalHeight = parseFloat(
+                    svgElement.getAttribute("height") ||
+                      svgElement.height.baseVal.value
+                  );
+
+                  const scale = Math.min(
+                    maxPreviewSize / originalWidth,
+                    maxPreviewSize / originalHeight
+                  );
+                  const newWidth = originalWidth * scale;
+                  const newHeight = originalHeight * scale;
+
+                  svgElement.setAttribute("width", newWidth);
+                  svgElement.setAttribute("height", newHeight);
+                  svgElement.style.width = `${newWidth}px`;
+                  svgElement.style.height = `${newHeight}px`;
+                } else {
+                  prepareSvgForPreview(svgText);
+                }
+              });
             }
 
             // Function to load gallery data
@@ -726,8 +851,7 @@
                     const caption = await captionResponse.text();
 
                     const col = document.createElement("div");
-                    col.style.flex = "0 0 10%";
-                    col.style.maxWidth = "10%";
+                    col.className = "gallery-col";
                     col.innerHTML = `
                       <div class="gallery-item" data-svg="${encodeURIComponent(
                         svgText
