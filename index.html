@@ -407,11 +407,24 @@
                 </div>
                 <div class="modal-body">
                   <div class="row g-4">
-                    <div class="col-md-6">
+                    <div class="col-md-6 position-relative">
                       <div
                         id="preview-image"
                         class="text-center preview-card"
                       ></div>
+                      <!-- Navigation buttons -->
+                      <button
+                        class="nav-btn prev-btn"
+                        onclick="navigateGallery(-1)"
+                      >
+                        <i class="bi bi-chevron-left"></i>
+                      </button>
+                      <button
+                        class="nav-btn next-btn"
+                        onclick="navigateGallery(1)"
+                      >
+                        <i class="bi bi-chevron-right"></i>
+                      </button>
                     </div>
                     <div class="col-md-6">
                       <div class="svg-code-container">
@@ -463,6 +476,42 @@
               border-radius: 8px 8px 0 0;
             }
 
+            /* Navigation buttons */
+            .nav-btn {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              background: rgba(255, 255, 255, 0.9);
+              border: none;
+              border-radius: 50%;
+              width: 40px;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+            .nav-btn:hover {
+              background: white;
+              box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            }
+            .prev-btn {
+              left: 10px;
+            }
+            .next-btn {
+              right: 10px;
+            }
+            .nav-btn i {
+              font-size: 1.2rem;
+              color: #333;
+            }
+            .nav-btn:disabled {
+              opacity: 0.5;
+              cursor: not-allowed;
+            }
+
             /* Modal styles */
             .modal-content {
               border: none;
@@ -474,11 +523,30 @@
               border-radius: 8px;
               padding: 20px;
               box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 540px; /* 500 + padding */
+            }
+            .preview-card svg {
+              width: 500px;
+              height: 500px;
+              object-fit: contain;
             }
             .preview-card img {
-              max-width: 100%;
-              height: auto;
-              max-height: 400px;
+              width: 500px;
+              height: 500px;
+              object-fit: contain;
+            }
+
+            /* 添加一个容器来确保SVG始终保持在500x500的范围内 */
+            #preview-image {
+              width: 500px;
+              height: 500px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              overflow: hidden;
             }
             .svg-code-container {
               background: #f8f9fa;
@@ -510,7 +578,7 @@
               color: #333;
               display: block;
               padding: 16px;
-              max-height: 400px;
+              height: 400px;
               overflow-y: auto;
             }
             .caption-card {
@@ -545,6 +613,9 @@
           </style>
 
           <script>
+            let currentImageIndex = 0;
+            let galleryItems = [];
+
             // Function to copy SVG code
             function copySVGCode() {
               const svgCode = document.getElementById("svg-code").textContent;
@@ -555,6 +626,82 @@
                   copyBtn.innerHTML = '<i class="bi bi-clipboard"></i> Copy';
                 }, 2000);
               });
+            }
+
+            // Function to navigate through gallery
+            function navigateGallery(direction) {
+              currentImageIndex =
+                (currentImageIndex + direction + galleryItems.length) %
+                galleryItems.length;
+              const item = galleryItems[currentImageIndex];
+              if (item) {
+                const svgText = decodeURIComponent(item.dataset.svg);
+                const caption = decodeURIComponent(item.dataset.caption);
+                updatePreview(svgText, caption);
+              }
+            }
+
+            // Function to update preview content
+            function updatePreview(svgText, caption) {
+              const previewImage = document.getElementById("preview-image");
+              const svgCode = document.getElementById("svg-code");
+              const previewCaption = document.getElementById("preview-caption");
+
+              // 修改SVG的宽高属性
+              const tempDiv = document.createElement("div");
+              tempDiv.innerHTML = svgText;
+              const svgElement = tempDiv.querySelector("svg");
+              if (svgElement) {
+                // 获取原始尺寸
+                const originalWidth = parseFloat(
+                  svgElement.getAttribute("width") ||
+                    svgElement.width.baseVal.value
+                );
+                const originalHeight = parseFloat(
+                  svgElement.getAttribute("height") ||
+                    svgElement.height.baseVal.value
+                );
+
+                // 计算缩放比例
+                const scale = Math.min(
+                  500 / originalWidth,
+                  500 / originalHeight
+                );
+                const newWidth = originalWidth * scale;
+                const newHeight = originalHeight * scale;
+
+                // 设置新的尺寸
+                svgElement.setAttribute("width", newWidth);
+                svgElement.setAttribute("height", newHeight);
+                svgElement.style.width = `${newWidth}px`;
+                svgElement.style.height = `${newHeight}px`;
+
+                // 添加viewBox以保持比例
+                if (!svgElement.getAttribute("viewBox")) {
+                  svgElement.setAttribute(
+                    "viewBox",
+                    `0 0 ${originalWidth} ${originalHeight}`
+                  );
+                }
+
+                previewImage.innerHTML = tempDiv.innerHTML;
+              } else {
+                previewImage.innerHTML = svgText;
+              }
+
+              svgCode.textContent = svgText;
+              previewCaption.textContent = caption;
+            }
+
+            // Function to show preview
+            function showPreview(svgText, caption, clickedItem) {
+              updatePreview(svgText, caption);
+              currentImageIndex = Array.from(galleryItems).indexOf(clickedItem);
+
+              const modal = new bootstrap.Modal(
+                document.getElementById("previewModal")
+              );
+              modal.show();
             }
 
             // Function to load gallery data
@@ -596,24 +743,25 @@
                 }
               } finally {
                 loadingSpinner.style.display = "none";
+                // Store all gallery items after loading
+                galleryItems = document.querySelectorAll(".gallery-item");
               }
             }
 
-            // Function to show preview
-            function showPreview(svgText, caption) {
-              const previewImage = document.getElementById("preview-image");
-              const svgCode = document.getElementById("svg-code");
-              const previewCaption = document.getElementById("preview-caption");
-
-              previewImage.innerHTML = svgText;
-              svgCode.textContent = svgText;
-              previewCaption.textContent = caption;
-
-              const modal = new bootstrap.Modal(
-                document.getElementById("previewModal")
-              );
-              modal.show();
-            }
+            // Add keyboard navigation
+            document.addEventListener("keydown", (e) => {
+              if (
+                document
+                  .getElementById("previewModal")
+                  .classList.contains("show")
+              ) {
+                if (e.key === "ArrowLeft") {
+                  navigateGallery(-1);
+                } else if (e.key === "ArrowRight") {
+                  navigateGallery(1);
+                }
+              }
+            });
 
             // Add event listeners
             document.addEventListener("DOMContentLoaded", () => {
@@ -626,7 +774,7 @@
                   if (item) {
                     const svgText = decodeURIComponent(item.dataset.svg);
                     const caption = decodeURIComponent(item.dataset.caption);
-                    showPreview(svgText, caption);
+                    showPreview(svgText, caption, item);
                   }
                 });
             });
