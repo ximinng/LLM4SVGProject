@@ -455,7 +455,10 @@
                             <i class="bi bi-clipboard"></i> Copy
                           </button>
                         </div>
-                        <code id="svg-code" class="language-markup"></code>
+                        <div class="code-content-wrapper">
+                          <div class="line-numbers" id="line-numbers"></div>
+                          <div class="code-content" id="svg-code"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -564,23 +567,12 @@
               display: flex;
               align-items: center;
               justify-content: center;
-            }
-            .preview-card svg {
-              max-width: 100%;
-              max-height: 100%;
-              width: auto;
-              height: auto;
-              object-fit: contain;
-            }
-            .preview-card img {
-              max-width: 100%;
-              max-height: 100%;
-              width: auto;
-              height: auto;
-              object-fit: contain;
+              background-color: #f8f9fa;
+              border-radius: 4px;
+              overflow: hidden;
             }
 
-            /* 修改预览容器样式 */
+            /* 预览图像容器样式 */
             #preview-image {
               position: absolute;
               width: 100%;
@@ -589,7 +581,18 @@
               align-items: center;
               justify-content: center;
               overflow: hidden;
+              background-color: #f8f9fa;
             }
+
+            #preview-image svg {
+              width: 100% !important;
+              height: 100% !important;
+              display: block;
+              object-fit: contain;
+              max-width: 100%;
+              max-height: 100%;
+            }
+
             .svg-code-container {
               background: #f8f9fa;
               border-radius: 8px;
@@ -614,42 +617,75 @@
             .copy-btn i {
               margin-right: 4px;
             }
-            #svg-code {
-              white-space: pre-wrap;
-              word-wrap: break-word;
-              font-family: "Monaco", "Menlo", "Ubuntu Mono", "Consolas",
-                monospace;
-              font-size: 0.9rem;
-              color: #333;
-              display: block;
-              padding: 16px;
+            .code-content-wrapper {
+              display: flex;
+              flex-direction: row;
               flex-grow: 1;
-              overflow-y: auto;
-              min-height: 200px;
+              overflow: auto;
+              position: relative;
+              max-height: 450px;
+              font-family: "Menlo", Monaco, Consolas, "Courier New", monospace;
             }
-            .caption-card {
-              background: white;
-              border-radius: 8px;
-              padding: 16px;
-              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-              margin-top: 1rem;
+            .line-numbers {
+              padding: 8px 8px 8px 16px;
+              background-color: #f1f1f1;
+              border-right: 1px solid #ddd;
+              text-align: right;
+              font-family: "Menlo", Monaco, Consolas, "Courier New", monospace;
+              font-size: 0.9rem;
+              color: #999;
+              user-select: none;
+              min-width: 40px;
+              flex-shrink: 0;
+              position: static;
+              overflow: visible;
             }
-
-            /* 响应式调整 */
+            .code-content {
+              padding: 8px 16px 8px 8px;
+              flex-grow: 1;
+              font-family: "Menlo", Monaco, Consolas, "Courier New", monospace;
+              font-size: 0.9rem;
+              overflow: visible;
+            }
+            .line-number,
+            .code-line {
+              padding: 2px 0;
+              line-height: 1.5;
+              box-sizing: border-box;
+              white-space: pre-wrap;
+              word-break: break-all;
+            }
+            .line-container {
+              display: flex;
+              width: 100%;
+            }
+            .active-line {
+              background-color: rgba(65, 105, 225, 0.2);
+              font-weight: bold;
+              color: #333;
+            }
+            .svg-highlight {
+              stroke: #ff6b6b !important;
+              stroke-width: 2px !important;
+              filter: drop-shadow(0 0 3px rgba(255, 107, 107, 0.7)) !important;
+            }
+            .svg-highlight[fill]:not([fill="none"]) {
+              fill-opacity: 0.8 !important;
+            }
             @media (max-width: 767px) {
               .modal-body {
                 padding: 1rem;
               }
               .preview-section {
                 margin-bottom: 1rem;
-                max-width: 100%; /* 在手机上占满宽度 */
+                max-width: 100%;
               }
               .preview-card {
-                max-width: 100%; /* 在手机上占满宽度 */
-                max-height: none; /* 在手机上不限制高度 */
+                max-width: 100%;
+                max-height: none;
               }
-              #svg-code {
-                height: 150px;
+              .line-numbers {
+                height: auto;
               }
               .svg-code-container {
                 max-height: 200px;
@@ -657,7 +693,7 @@
             }
             @media (min-width: 768px) {
               .modal-dialog {
-                max-width: 80%; /* 从90%减小到80% */
+                max-width: 80%;
                 margin: 1.75rem auto;
               }
               .preview-section {
@@ -666,38 +702,34 @@
               }
               .svg-code-container {
                 height: auto;
-                max-height: 450px; /* 从650px减小到450px */
+                max-height: 450px;
               }
-              #svg-code {
-                height: 400px; /* 从600px减小到400px */
+              .line-numbers {
+                height: auto;
               }
             }
-
-            /* Scrollbar styling */
-            #svg-code::-webkit-scrollbar {
+            .code-content-wrapper::-webkit-scrollbar {
               width: 8px;
             }
-            #svg-code::-webkit-scrollbar-track {
+            .code-content-wrapper::-webkit-scrollbar-track {
               background: #f1f1f1;
               border-radius: 4px;
             }
-            #svg-code::-webkit-scrollbar-thumb {
+            .code-content-wrapper::-webkit-scrollbar-thumb {
               background: #888;
               border-radius: 4px;
             }
-            #svg-code::-webkit-scrollbar-thumb:hover {
+            .code-content-wrapper::-webkit-scrollbar-thumb:hover {
               background: #555;
             }
-
-            /* 添加响应式布局样式 */
             .gallery-col {
-              flex: 0 0 16.666667%; /* 在手机上每行6个 */
+              flex: 0 0 16.666667%;
               max-width: 16.666667%;
               padding: 0.5rem;
             }
             @media (min-width: 768px) {
               .gallery-col {
-                flex: 0 0 10%; /* 在大屏幕上每行10个 */
+                flex: 0 0 10%;
                 max-width: 10%;
               }
             }
@@ -713,7 +745,12 @@
 
             // Function to copy SVG code
             function copySVGCode() {
-              const svgCode = document.getElementById("svg-code").textContent;
+              // 获取原始SVG代码文本（不包含行号和HTML元素）
+              const codeLines = Array.from(
+                document.querySelectorAll(".code-line")
+              ).map((line) => line.textContent);
+              const svgCode = codeLines.join("\n");
+
               navigator.clipboard.writeText(svgCode).then(() => {
                 const copyBtn = document.querySelector(".copy-btn");
                 copyBtn.innerHTML = '<i class="bi bi-check2"></i> Copied!';
@@ -844,46 +881,243 @@
                   );
                 }
 
-                // 设置初始样式
+                // 修改：设置SVG填充整个容器
+                svgElement.style.width = "100%";
+                svgElement.style.height = "100%";
                 svgElement.style.maxWidth = "100%";
                 svgElement.style.maxHeight = "100%";
-                svgElement.style.width = "auto";
-                svgElement.style.height = "auto";
+                svgElement.style.display = "block";
+                svgElement.style.position = "absolute";
+                svgElement.style.top = "0";
+                svgElement.style.left = "0";
+                svgElement.style.right = "0";
+                svgElement.style.bottom = "0";
+                svgElement.style.margin = "auto";
+                svgElement.style.objectFit = "contain";
 
                 const previewImage = document.getElementById("preview-image");
                 if (!previewImage) return; // 安全检查
 
                 previewImage.innerHTML = tempDiv.innerHTML;
 
-                // 获取预览区域的尺寸
-                const previewCard = document.querySelector(
-                  ".preview-card-inner"
-                );
-                if (!previewCard) return; // 安全检查
-
-                const previewRect = previewCard.getBoundingClientRect();
-                const maxPreviewSize = Math.min(
-                  previewRect.width,
-                  previewRect.height
-                );
-
-                // 计算并设置新的尺寸
-                const scale = Math.min(
-                  maxPreviewSize / originalWidth,
-                  maxPreviewSize / originalHeight
-                );
-                const newWidth = originalWidth * scale;
-                const newHeight = originalHeight * scale;
-
-                const newSvgElement = previewImage.querySelector("svg");
-                if (newSvgElement) {
-                  newSvgElement.setAttribute("width", newWidth);
-                  newSvgElement.setAttribute("height", newHeight);
-                  newSvgElement.style.width = `${newWidth}px`;
-                  newSvgElement.style.height = `${newHeight}px`;
-                }
+                // 格式化并显示代码
+                formatAndDisplayCode(svgText);
               }
             }
+
+            // 修改formatAndDisplayCode函数，使用表格布局方式来确保行号和代码同步滚动
+            function formatAndDisplayCode(svgText) {
+              const svgCode = document.getElementById("svg-code");
+              const lineNumbers = document.getElementById("line-numbers");
+
+              // 清空现有内容
+              svgCode.innerHTML = "";
+              lineNumbers.innerHTML = "";
+
+              // 分割SVG代码为行
+              const lines = svgText.split("\n");
+
+              // 使用绝对定位的方式添加行号和代码行
+              lines.forEach((line, index) => {
+                // 创建行号
+                const lineNumber = document.createElement("div");
+                lineNumber.textContent = index + 1;
+                lineNumber.className = "line-number";
+                lineNumber.id = `line-num-${index}`;
+                lineNumbers.appendChild(lineNumber);
+
+                // 创建代码行
+                const lineElement = document.createElement("div");
+                lineElement.className = "code-line";
+                lineElement.textContent = line;
+                lineElement.dataset.line = index;
+                lineElement.id = `code-line-${index}`;
+
+                // 添加鼠标事件（保持现有功能）
+                lineElement.addEventListener("mouseenter", function () {
+                  highlightSvgElement(line);
+                  lineNumber.classList.add("active-line");
+                });
+
+                lineElement.addEventListener("mouseleave", function () {
+                  removeHighlight();
+                  if (!document.querySelector(".code-line.active")) {
+                    lineNumber.classList.remove("active-line");
+                  }
+                });
+
+                lineElement.addEventListener("click", function () {
+                  const allCodeLines = document.querySelectorAll(".code-line");
+                  const allLineNumbers =
+                    document.querySelectorAll(".line-number");
+
+                  // 移除所有高亮
+                  allCodeLines.forEach((el) => el.classList.remove("active"));
+                  allLineNumbers.forEach((el) =>
+                    el.classList.remove("active-line")
+                  );
+
+                  // 添加当前行的高亮
+                  this.classList.add("active");
+                  lineNumber.classList.add("active-line");
+
+                  // 保持高亮状态直到点击其他行
+                  highlightSvgElement(line, true);
+                });
+
+                svgCode.appendChild(lineElement);
+              });
+
+              // 确保初始行高匹配
+              setTimeout(adjustLineHeights, 50);
+
+              // 为code-content-wrapper添加滚动同步事件
+              const wrapper = document.querySelector(".code-content-wrapper");
+
+              // 清除之前的事件监听
+              wrapper.removeEventListener("scroll", handleScroll);
+
+              // 添加新的滚动事件监听
+              wrapper.addEventListener("scroll", handleScroll);
+            }
+
+            // 改进handleScroll函数，确保滚动同步
+            function handleScroll(e) {
+              // 在滚动时重新调整行高以确保同步
+              requestAnimationFrame(adjustLineHeights);
+            }
+
+            // 改进adjustLineHeights函数，确保行号与代码行精确对齐
+            function adjustLineHeights() {
+              const codeLines = document.querySelectorAll(".code-line");
+              const lineNumbers = document.querySelectorAll(".line-number");
+
+              if (codeLines.length !== lineNumbers.length) return;
+
+              codeLines.forEach((line, index) => {
+                const height = line.offsetHeight;
+                const top = line.offsetTop;
+                lineNumbers[index].style.height = `${height}px`;
+                lineNumbers[index].style.top = `${top}px`;
+                lineNumbers[index].style.position = "absolute";
+              });
+            }
+
+            // 添加新函数：高亮SVG元素
+            function highlightSvgElement(codeLine, isPersistent = false) {
+              // 移除之前的非持久化高亮
+              if (!isPersistent) {
+                removeHighlight(false);
+              } else {
+                // 如果是持久化高亮，移除所有高亮
+                removeHighlight(true);
+              }
+
+              // 从代码行提取元素信息
+              let elementId = null;
+              let elementTag = null;
+
+              // 提取ID
+              const idMatch = codeLine.match(/id=["']([^"']*)["']/);
+              if (idMatch) elementId = idMatch[1];
+
+              // 提取标签类型
+              const tagMatch = codeLine.match(/<([a-z][a-z0-9]*)/i);
+              if (tagMatch) elementTag = tagMatch[1];
+
+              // 获取SVG预览元素
+              const previewSvg = document.querySelector("#preview-image svg");
+              if (!previewSvg) return;
+
+              let targetElements = [];
+
+              // 优先通过ID查找
+              if (elementId) {
+                const element = previewSvg.querySelector(`#${elementId}`);
+                if (element) targetElements.push(element);
+              }
+              // 如果没有ID或找不到元素，尝试通过标签查找
+              else if (elementTag && !targetElements.length) {
+                // 仅尝试匹配可能与当前行相关的标签
+                // 这里使用一个启发式方法：查找行中包含的主要属性值
+                const attributeValues = [];
+                const attrMatches = codeLine.matchAll(
+                  /\s([a-z0-9-]+)=["']([^"']*)["']/gi
+                );
+                for (const match of attrMatches) {
+                  attributeValues.push({ attr: match[1], value: match[2] });
+                }
+
+                // 获取所有匹配标签的元素
+                const elements = previewSvg.querySelectorAll(elementTag);
+
+                if (attributeValues.length > 0) {
+                  // 筛选具有匹配属性值的元素
+                  for (const element of elements) {
+                    let matchCount = 0;
+                    for (const { attr, value } of attributeValues) {
+                      if (element.getAttribute(attr) === value) {
+                        matchCount++;
+                      }
+                    }
+                    // 如果至少匹配一个属性，则添加到目标元素列表
+                    if (matchCount > 0) {
+                      targetElements.push(element);
+                    }
+                  }
+                } else if (elements.length === 1) {
+                  // 如果只有一个元素，且没有其他信息，则默认使用它
+                  targetElements.push(elements[0]);
+                }
+              }
+
+              // 应用高亮样式
+              targetElements.forEach((element) => {
+                element.classList.add("svg-highlight");
+                if (isPersistent) {
+                  element.classList.add("svg-highlight-persistent");
+                }
+              });
+            }
+
+            // 添加新函数：移除高亮效果
+            function removeHighlight(removeAll = false) {
+              const previewSvg = document.querySelector("#preview-image svg");
+              if (!previewSvg) return;
+
+              if (removeAll) {
+                // 移除所有高亮
+                previewSvg.querySelectorAll(".svg-highlight").forEach((el) => {
+                  el.classList.remove(
+                    "svg-highlight",
+                    "svg-highlight-persistent"
+                  );
+                });
+              } else {
+                // 只移除非持久化高亮
+                previewSvg
+                  .querySelectorAll(
+                    ".svg-highlight:not(.svg-highlight-persistent)"
+                  )
+                  .forEach((el) => {
+                    el.classList.remove("svg-highlight");
+                  });
+              }
+            }
+
+            // 在模态框关闭时清除所有高亮状态
+            document
+              .getElementById("previewModal")
+              .addEventListener("hidden.bs.modal", function () {
+                document
+                  .querySelectorAll(".svg-highlight, .svg-highlight-persistent")
+                  .forEach((el) => {
+                    el.classList.remove(
+                      "svg-highlight",
+                      "svg-highlight-persistent"
+                    );
+                  });
+              });
 
             // Get random indices for initial display
             function getRandomIndices(max, count) {
