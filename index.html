@@ -9,7 +9,11 @@
     ></script>
     <!-- import MathJax -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
     <!-- Custom JS for this template -->
     <script src="js/copyText.js"></script>
 
@@ -518,6 +522,8 @@
               display: flex;
               flex-direction: column;
               height: 100%;
+              max-width: 400px; /* 从600px减小到400px */
+              margin: 0 auto;
             }
             .preview-card {
               background: white;
@@ -529,7 +535,9 @@
               justify-content: center;
               position: relative;
               width: 100%;
-              padding-bottom: 100%; /* 保持1:1的宽高比 */
+              padding-bottom: 100%;
+              max-width: 400px; /* 从600px减小到400px */
+              max-height: 400px; /* 从600px减小到400px */
             }
             .preview-card-inner {
               position: absolute;
@@ -573,6 +581,7 @@
               box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
               display: flex;
               flex-direction: column;
+              height: 100%;
             }
             .code-header {
               display: flex;
@@ -617,17 +626,22 @@
               }
               .preview-section {
                 margin-bottom: 1rem;
+                max-width: 100%; /* 在手机上占满宽度 */
+              }
+              .preview-card {
+                max-width: 100%; /* 在手机上占满宽度 */
+                max-height: none; /* 在手机上不限制高度 */
               }
               #svg-code {
-                height: 150px; /* 在手机上减小高度 */
+                height: 150px;
               }
               .svg-code-container {
-                max-height: 200px; /* 限制手机上的最大高度 */
+                max-height: 200px;
               }
             }
             @media (min-width: 768px) {
               .modal-dialog {
-                max-width: 90%;
+                max-width: 80%; /* 从90%减小到80% */
                 margin: 1.75rem auto;
               }
               .preview-section {
@@ -636,10 +650,10 @@
               }
               .svg-code-container {
                 height: auto;
-                max-height: 650px; /* 限制桌面端的最大高度 */
+                max-height: 450px; /* 从650px减小到450px */
               }
               #svg-code {
-                height: 600px; /* 在桌面端设置合适的高度 */
+                height: 400px; /* 从600px减小到400px */
               }
             }
 
@@ -698,7 +712,7 @@
               if (item) {
                 const svgText = decodeURIComponent(item.dataset.svg);
                 const caption = decodeURIComponent(item.dataset.caption);
-                showPreview(svgText, caption, item);
+                updatePreview(svgText, caption);
               }
             }
 
@@ -725,8 +739,6 @@
               modalElement.addEventListener(
                 "show.bs.modal",
                 function onModalShow() {
-                  // 开始准备SVG
-                  prepareSvgForPreview(svgText);
                   modalElement.removeEventListener(
                     "show.bs.modal",
                     onModalShow
@@ -734,7 +746,56 @@
                 }
               );
 
+              // 添加modal显示后的事件处理
+              modalElement.addEventListener(
+                "shown.bs.modal",
+                function onModalShown() {
+                  // 开始准备SVG
+                  prepareSvgForPreview(svgText);
+                  modalElement.removeEventListener(
+                    "shown.bs.modal",
+                    onModalShown
+                  );
+                }
+              );
+
+              // 添加modal隐藏后的事件处理
+              modalElement.addEventListener(
+                "hidden.bs.modal",
+                function onModalHidden() {
+                  // 重置当前图片索引
+                  currentImageIndex = -1;
+                  // 清除预览内容
+                  previewImage.innerHTML = "";
+                  svgCode.textContent = "";
+                  previewCaption.textContent = "";
+                  modalElement.removeEventListener(
+                    "hidden.bs.modal",
+                    onModalHidden
+                  );
+                }
+              );
+
               modal.show();
+            }
+
+            // Function to update preview content
+            function updatePreview(svgText, caption) {
+              const previewImage = document.getElementById("preview-image");
+              const svgCode = document.getElementById("svg-code");
+              const previewCaption = document.getElementById("preview-caption");
+
+              // 更新文本内容
+              svgCode.textContent = svgText;
+              previewCaption.textContent = caption;
+
+              // 确保在下一帧更新SVG
+              requestAnimationFrame(() => {
+                // 等待一小段时间确保DOM已更新
+                setTimeout(() => {
+                  prepareSvgForPreview(svgText);
+                }, 50);
+              });
             }
 
             // 新增函数：准备SVG预览
@@ -747,11 +808,13 @@
                 // 先设置viewBox
                 const originalWidth = parseFloat(
                   svgElement.getAttribute("width") ||
-                    svgElement.width.baseVal.value
+                    svgElement.width.baseVal.value ||
+                    100
                 );
                 const originalHeight = parseFloat(
                   svgElement.getAttribute("height") ||
-                    svgElement.height.baseVal.value
+                    svgElement.height.baseVal.value ||
+                    100
                 );
 
                 if (!svgElement.getAttribute("viewBox")) {
@@ -767,58 +830,39 @@
                 svgElement.style.width = "auto";
                 svgElement.style.height = "auto";
 
-                document.getElementById("preview-image").innerHTML =
-                  tempDiv.innerHTML;
-              }
-            }
+                const previewImage = document.getElementById("preview-image");
+                if (!previewImage) return; // 安全检查
 
-            // Function to update preview content
-            function updatePreview(svgText, caption) {
-              const previewImage = document.getElementById("preview-image");
-              const svgCode = document.getElementById("svg-code");
-              const previewCaption = document.getElementById("preview-caption");
+                previewImage.innerHTML = tempDiv.innerHTML;
 
-              // 更新文本内容
-              svgCode.textContent = svgText;
-              previewCaption.textContent = caption;
-
-              // 更新SVG
-              requestAnimationFrame(() => {
+                // 获取预览区域的尺寸
                 const previewCard = document.querySelector(
                   ".preview-card-inner"
                 );
+                if (!previewCard) return; // 安全检查
+
                 const previewRect = previewCard.getBoundingClientRect();
                 const maxPreviewSize = Math.min(
                   previewRect.width,
                   previewRect.height
                 );
 
-                const svgElement = previewImage.querySelector("svg");
-                if (svgElement) {
-                  const originalWidth = parseFloat(
-                    svgElement.getAttribute("width") ||
-                      svgElement.width.baseVal.value
-                  );
-                  const originalHeight = parseFloat(
-                    svgElement.getAttribute("height") ||
-                      svgElement.height.baseVal.value
-                  );
+                // 计算并设置新的尺寸
+                const scale = Math.min(
+                  maxPreviewSize / originalWidth,
+                  maxPreviewSize / originalHeight
+                );
+                const newWidth = originalWidth * scale;
+                const newHeight = originalHeight * scale;
 
-                  const scale = Math.min(
-                    maxPreviewSize / originalWidth,
-                    maxPreviewSize / originalHeight
-                  );
-                  const newWidth = originalWidth * scale;
-                  const newHeight = originalHeight * scale;
-
-                  svgElement.setAttribute("width", newWidth);
-                  svgElement.setAttribute("height", newHeight);
-                  svgElement.style.width = `${newWidth}px`;
-                  svgElement.style.height = `${newHeight}px`;
-                } else {
-                  prepareSvgForPreview(svgText);
+                const newSvgElement = previewImage.querySelector("svg");
+                if (newSvgElement) {
+                  newSvgElement.setAttribute("width", newWidth);
+                  newSvgElement.setAttribute("height", newHeight);
+                  newSvgElement.style.width = `${newWidth}px`;
+                  newSvgElement.style.height = `${newHeight}px`;
                 }
-              });
+              }
             }
 
             // Function to load gallery data
@@ -910,10 +954,10 @@
             training phase, we provide both the original SVG code
             \(\mathbf{X}_{\mathrm{v}}\) and the corresponding instruction data
             \(\mathbf{X}_{\mathrm{inst}}\) as input. For the understanding task,
-            we use detailed descriptions \(\mathbf{X}_{\mathrm{a}}\) generated by
-            GPT-4 as the training labels. For the generation task, the SVG code
-            portion is masked and serves as the target that the model needs to
-            predict. <b>(2)</b> During the inference phase, for the
+            we use detailed descriptions \(\mathbf{X}_{\mathrm{a}}\) generated
+            by GPT-4 as the training labels. For the generation task, the SVG
+            code portion is masked and serves as the target that the model needs
+            to predict. <b>(2)</b> During the inference phase, for the
             understanding task, given an SVG source code, the model generates a
             description that aligns with the semantics expressed by the SVG. For
             the generation task, the model generates an SVG based on the input
