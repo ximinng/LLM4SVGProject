@@ -378,6 +378,22 @@
             <div class="row g-4" id="gallery-grid">
               <!-- Gallery items will be dynamically added here -->
             </div>
+
+            <!-- Add More Results button -->
+            <div
+              id="more-results-container"
+              class="text-center mt-4 mb-3"
+              style="display: none"
+            >
+              <button id="more-results-btn" class="btn btn-primary">
+                <span>Load More Results</span>
+                <span
+                  class="spinner-border spinner-border-sm ms-2 d-none"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              </button>
+            </div>
           </div>
 
           <!-- Modal for preview -->
@@ -690,6 +706,10 @@
           <script>
             let currentImageIndex = 0;
             let galleryItems = [];
+            let allImagesLoaded = false;
+            const totalItems = 109;
+            const initialDisplayCount = 20;
+            let loadedIndices = new Set();
 
             // Function to copy SVG code
             function copySVGCode() {
@@ -798,7 +818,7 @@
               });
             }
 
-            // 新增函数：准备SVG预览
+            // Function to prepare SVG for preview
             function prepareSvgForPreview(svgText) {
               const tempDiv = document.createElement("div");
               tempDiv.innerHTML = svgText;
@@ -865,45 +885,136 @@
               }
             }
 
-            // Function to load gallery data
-            async function loadGalleryData() {
+            // Get random indices for initial display
+            function getRandomIndices(max, count) {
+              const indices = new Set();
+              while (indices.size < count) {
+                const randomIndex = Math.floor(Math.random() * max) + 1;
+                indices.add(randomIndex);
+              }
+              return Array.from(indices);
+            }
+
+            // Function to load a single gallery item
+            async function loadGalleryItem(index) {
+              try {
+                const svgResponse = await fetch(
+                  `gallery/svg/LLM4SVG_${index}.svg`
+                );
+                if (!svgResponse.ok) return null;
+
+                const captionResponse = await fetch(
+                  `gallery/captions/caption_${index}.txt`
+                );
+                if (!captionResponse.ok) return null;
+
+                const svgText = await svgResponse.text();
+                const caption = await captionResponse.text();
+
+                const col = document.createElement("div");
+                col.className = "gallery-col";
+                col.innerHTML = `
+                  <div class="gallery-item" data-svg="${encodeURIComponent(
+                    svgText
+                  )}" 
+                       data-caption="${encodeURIComponent(caption)}">
+                    <img src="gallery/svg/LLM4SVG_${index}.svg" alt="SVG ${index}" class="img-fluid">
+                  </div>
+                `;
+
+                return col;
+              } catch (error) {
+                console.error(`Error loading item ${index}:`, error);
+                return null;
+              }
+            }
+
+            // Function to load initial gallery data
+            async function loadInitialGallery() {
               const galleryGrid = document.getElementById("gallery-grid");
               const loadingSpinner = document.getElementById("loading-spinner");
+              const moreResultsContainer = document.getElementById(
+                "more-results-container"
+              );
 
               try {
-                for (let i = 1; i <= 109; i++) {
-                  try {
-                    const svgResponse = await fetch(
-                      `gallery/svg/LLM4SVG_${i}.svg`
-                    );
-                    if (!svgResponse.ok) continue;
+                // Get random indices for initial display
+                const randomIndices = getRandomIndices(
+                  totalItems,
+                  initialDisplayCount
+                );
+                loadedIndices = new Set(randomIndices);
 
-                    const captionResponse = await fetch(
-                      `gallery/captions/caption_${i}.txt`
-                    );
-                    if (!captionResponse.ok) continue;
+                // Load and add random items
+                const itemPromises = randomIndices.map((index) =>
+                  loadGalleryItem(index)
+                );
+                const items = await Promise.all(itemPromises);
 
-                    const svgText = await svgResponse.text();
-                    const caption = await captionResponse.text();
+                items.forEach((item) => {
+                  if (item) galleryGrid.appendChild(item);
+                });
 
-                    const col = document.createElement("div");
-                    col.className = "gallery-col";
-                    col.innerHTML = `
-                      <div class="gallery-item" data-svg="${encodeURIComponent(
-                        svgText
-                      )}" data-caption="${encodeURIComponent(caption)}">
-                        <img src="gallery/svg/LLM4SVG_${i}.svg" alt="SVG ${i}" class="img-fluid">
-                      </div>
-                    `;
-
-                    galleryGrid.appendChild(col);
-                  } catch (error) {
-                    console.error(`Error loading item ${i}:`, error);
-                  }
-                }
+                // Show the "More Results" button
+                moreResultsContainer.style.display = "block";
+              } catch (error) {
+                console.error("Error loading initial gallery:", error);
               } finally {
                 loadingSpinner.style.display = "none";
                 // Store all gallery items after loading
+                galleryItems = document.querySelectorAll(".gallery-item");
+              }
+            }
+
+            // Function to load all remaining gallery items
+            async function loadAllGalleryItems() {
+              const galleryGrid = document.getElementById("gallery-grid");
+              const moreResultsBtn =
+                document.getElementById("more-results-btn");
+              const spinner = moreResultsBtn.querySelector(".spinner-border");
+
+              // Show loading state
+              moreResultsBtn.disabled = true;
+              moreResultsBtn.querySelector("span:first-child").textContent =
+                "Loading...";
+              spinner.classList.remove("d-none");
+
+              try {
+                const remainingIndices = [];
+                for (let i = 1; i <= totalItems; i++) {
+                  if (!loadedIndices.has(i)) {
+                    remainingIndices.push(i);
+                  }
+                }
+
+                // Load items in batches to avoid overwhelming the browser
+                const batchSize = 20;
+                for (let i = 0; i < remainingIndices.length; i += batchSize) {
+                  const batch = remainingIndices.slice(i, i + batchSize);
+                  const itemPromises = batch.map((index) =>
+                    loadGalleryItem(index)
+                  );
+                  const items = await Promise.all(itemPromises);
+
+                  items.forEach((item) => {
+                    if (item) galleryGrid.appendChild(item);
+                  });
+
+                  // Brief pause between batches
+                  await new Promise((resolve) => setTimeout(resolve, 100));
+                }
+
+                allImagesLoaded = true;
+                moreResultsBtn.style.display = "none";
+              } catch (error) {
+                console.error("Error loading all gallery items:", error);
+                // Reset button state on error
+                moreResultsBtn.disabled = false;
+                moreResultsBtn.querySelector("span:first-child").textContent =
+                  "Load More Results";
+                spinner.classList.add("d-none");
+              } finally {
+                // Update gallery items collection
                 galleryItems = document.querySelectorAll(".gallery-item");
               }
             }
@@ -925,7 +1036,7 @@
 
             // Add event listeners
             document.addEventListener("DOMContentLoaded", () => {
-              loadGalleryData();
+              loadInitialGallery();
 
               document
                 .getElementById("gallery-grid")
@@ -937,6 +1048,11 @@
                     showPreview(svgText, caption, item);
                   }
                 });
+
+              // Add event listener for "More Results" button
+              document
+                .getElementById("more-results-btn")
+                .addEventListener("click", loadAllGalleryItems);
             });
           </script>
         </div>
