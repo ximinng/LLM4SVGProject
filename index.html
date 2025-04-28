@@ -1,94 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--Include Bootstrap’s JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    <!--Include Bootstrap's JS-->
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous"
+    ></script>
+    <!-- import MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+            id="MathJax-script"
+            async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
     <!-- Custom JS for this template -->
     <script src="js/copyText.js"></script>
-    <!--Include Latex (optional)-->
-    <script type="text/javascript"
-            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {inlineMath: [['$', '$']]},
-            messageStyle: "none"
-        });
-    </script>
 
     <!--Include the icon fonts stylesheet-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <!--Include Bootstrap’s CSS-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
-          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
-          crossorigin="anonymous">
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <!--Include Bootstrap's CSS-->
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+            crossorigin="anonymous"
+    />
     <!--Local Icon-->
-    <link rel="stylesheet" href="icons/style.css">
+    <link rel="stylesheet" href="icons/style.css"/>
     <!--Local Fonts-->
-    <link rel="stylesheet" href="fonts/avenir-next/stylesheet.css">
-    <link rel="stylesheet" href="fonts/segoe-print/stylesheet.css">
+    <link rel="stylesheet" href="fonts/avenir-next/stylesheet.css"/>
+    <link rel="stylesheet" href="fonts/segoe-print/stylesheet.css"/>
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"/>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <!-- Website Title -->
-    <title>Empowering LLMs to Understand and Generate Complex Vector Graphics</title>
+    <title>
+        Empowering LLMs to Understand and Generate Complex Vector Graphics
+    </title>
     <!-- The description that appears when you share the link -->
-    <meta property="og:description" content="Empowering LLMs to Understand and Generate Complex Vector Graphics"/>
+    <meta
+            property="og:description"
+            content="Empowering LLMs to Understand and Generate Complex Vector Graphics"
+    />
     <!-- Used to display page descriptions in search results -->
-    <meta name="description"
-          content="LLM4SVG, LLM and SVG, LLM SVG, SVG instruction-tuning, SVG generation, text-to-svg, text2svg">
+    <meta
+            name="description"
+            content="LLM4SVG, LLM and SVG, LLM SVG, SVG instruction-tuning, SVG generation, text-to-svg, text2svg"
+    />
     <!-- favicon -->
-    <link rel="icon" href="assets/favicon.svg" type="image/x-icon">
+    <link rel="icon" href="assets/favicon.svg" type="image/x-icon"/>
 </head>
 
 <body>
 <header class="container">
-    <hr>
+    <hr/>
     <!-- Paper Title -->
     <div class="container text-center">
         <span class="title-font x-gradient-font">
-            Empowering LLMs to Understand and Generate Complex Vector Graphics
+          LLM4SVG: Empowering LLMs to Understand and Generate <br/>
+          Complex Vector Graphics
         </span>
     </div>
-    <hr>
+    <hr/>
     <!-- author list -->
     <div class="container author text-center">
         <!-- authors -->
         <div class="row gy-2">
             <div class="col-12 col-md-2">
-                <a class="link" href="https://ximinng.github.io">Ximing Xing</a><sup>1</sup>
+                <a class="link" href="https://ximinng.github.io">Ximing Xing</a
+                ><sup>1</sup>
             </div>
-            <div class="col-12 col-md-2">Juncheng Hu<sup>1</sup></div>
+            <div class="col-12 col-md-2">
+                <a class="link" href="https://hjc-owo.github.io">Juncheng Hu</a
+                ><sup>1</sup>
+            </div>
             <div class="col-12 col-md-2">Guotao Liang<sup>1</sup></div>
             <div class="col-12 col-md-2">
-                <a class="link" href="https://scholar.google.ch/citations?user=XtwOoQgAAAAJ&hl=en">Jing
-                    Zhang</a><sup>1</sup>
+                <a
+                        class="link"
+                        href="https://scholar.google.ch/citations?user=XtwOoQgAAAAJ"
+                >Jing Zhang</a
+                ><sup>1</sup>
             </div>
             <div class="col-12 col-md-2">
-                <a class="link" href="https://scholar.google.com.sg/citations?user=7Hdu5k4AAAAJ&hl=en">Dong
-                    Xu</a><sup>2</sup>
+                <a
+                        class="link"
+                        href="https://scholar.google.com.sg/citations?user=7Hdu5k4AAAAJ"
+                >Dong Xu</a
+                ><sup>2</sup>
             </div>
             <div class="col-12 col-md-2">
-                <a class="link" href="https://scholar.google.com/citations?user=mmm90qgAAAAJ&hl=zh-CN">Qian
-                    Yu</a><sup>1</sup>
+                <a
+                        class="link"
+                        href="https://scholar.google.com/citations?user=mmm90qgAAAAJ"
+                >Qian Yu</a
+                ><sup>1</sup>
             </div>
         </div>
         <!-- author organization -->
         <div class="row mt-3">
             <div class="col-12">
-                <sup>1</sup>Beihang University &nbsp;&nbsp;<sup>2</sup>The University of Hong Kong
+                <sup>1</sup>Beihang University &nbsp;&nbsp;<sup>2</sup>The
+                University of Hong Kong
             </div>
         </div>
     </div>
 
-    <!-- paper status -->
-    <!--    <div class="text-center" style="margin-top: 20px">-->
-    <!--        <h3>Paper status - Under Review</h3>-->
-    <!--    </div>-->
+    <div class="text-center" style="margin-top: 20px">
+        <h3 style="font-weight: bold">🎉🎉🎉 Accepted by CVPR 2025 🎉🎉🎉</h3>
+    </div>
 
     <!-- links -->
     <div class="text-center">
@@ -104,7 +131,6 @@
             <!-- Code Link -->
             <div class="col col-lg-2">
                 <a id="code" href="https://github.com/ximinng/LLM4SVG">Code</a>
-                <div style="margin-top: -0.5rem;"></div>
             </div>
             <div class="col col-lg-2">
                 <a id="demo" href="https://huggingface.co/datasets/xingxm/SVGX-Core-250k">Core</a>
@@ -114,35 +140,78 @@
             </div>
         </div>
     </div>
-    <br>
+    <br/>
+
+    <!-- Features -->
+    <div class="card border-0">
+        <div class="card-body x-gradient-block">
+            <h2
+                    class="card-title text-center"
+                    style="font-size: 2rem; margin-bottom: 1.5rem"
+            >
+                ✨ Highlights
+            </h2>
+            <hr class="body-hr"/>
+            <ul class="list-unstyled">
+                <li class="mb-2">
+                    <strong>SVGX-SFT Dataset:</strong> Collected dataset covering
+                    <b
+                    >pretrained models, supervised fine-tuning data, and preference
+                        data</b
+                    >.
+                </li>
+                <li class="mb-2">
+                    <strong>Diverse Model Support:</strong> Seamlessly integrates
+                    <b>deepseek-r1-distill-model, Qwen2/Qwen2.5, Llama 3</b>, and
+                    more, providing flexibility for various AI applications.
+                </li>
+                <li>
+                    <strong>Optimized Inference Speed:</strong> Leverages
+                    <b>VLLM</b> to deliver significantly faster inference, enhancing
+                    efficiency and scalability.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br/>
 
     <!-- teaser -->
     <div class="text-center">
         <figure class="figure">
-            <img src="assets/teaser.png"
-                 class="figure-img img-fluid rounded"
-                 width="90%"
-                 alt="LLM4SVG teaser">
-            <figcaption class="figure-caption">
-                Our <b style="color: #7e57c2">LLM4SVG</b> can <b>understand</b> and <b>generate</b> vector graphics from
-                textual description. <br>
-                Our <b style="color: #7e57c2">LLM4SVG</b> is designed to: <br>
-                <b>(a)</b> Understand the semantics of SVG (Scalable Vector Graphics) source code and directly extract
-                the meanings conveyed by vector images; <br>
-                <b>(b)</b> Generate corresponding structured SVG representations from textual prompts and decode them
-                into SVG source code that accurately reflects the described content. <br>
+            <img
+                    src="assets/teaser.png"
+                    class="figure-img img-fluid rounded"
+                    width="90%"
+                    alt="LLM4SVG teaser"
+            />
+            <figcaption
+                    class="figure-caption"
+                    style="display: inline-block; text-align: left"
+            >
+                Our <b style="color: #7e57c2">LLM4SVG</b> can <b>understand</b> and
+                <b>generate</b> vector graphics from textual description. Our
+                <b style="color: #7e57c2">LLM4SVG</b> is designed to: <br/>
+                <b>(a)</b> Understand the semantics of SVG (Scalable Vector
+                Graphics) source code and directly extract the meanings conveyed by
+                vector images; <br/>
+                <b>(b)</b> Generate corresponding structured SVG representations
+                from textual prompts and decode them into SVG source code that
+                accurately reflects the described content. <br/>
                 <b>(c)</b> illustrates some SVG examples generated by our method.
             </figcaption>
         </figure>
     </div>
 
     <!-- TL;DR -->
-    <div class="text-center" style="margin-top: 20px; font-size: 20px; font-weight: 500;">
-        <b>TL;DR:</b> Instruction based fine-tuning empowers the LL.M. to understand and generate complex vector
-        graphics
+    <div
+            class="text-center"
+            style="margin-top: 20px; font-size: 20px; font-weight: 500"
+    >
+        <b>TL;DR:</b> Instruction based fine-tuning empowers the LLM to
+        understand and generate complex vector graphics
     </div>
 </header>
-<br>
+<br/>
 
 <main class="container">
     <!-- Abstract -->
@@ -150,32 +219,44 @@
         <div class="card-body x-gradient-block">
             <h2 class="card-title text-center card-title-margin">Abstract</h2>
             <p class="card-text">
-                The unprecedented advancements in Large Language Models (LLMs) have profoundly impacted natural language
-                processing but have yet to fully embrace the realm of scalable vector graphics (SVG) generation. While
-                LLMs encode partial knowledge of SVG data from web pages during training, recent findings suggest that
-                semantically ambiguous and tokenized representations within <b>LLMs may result in hallucinations in
-                vector
-                primitive predictions</b>. Additionally, LLM training typically lacks modeling and understanding of the
-                rendering sequence of vector paths, which can lead to occlusion between output vector primitives. In
-                this paper, we present <b style="color: #7e57c2">LLM4SVG</b>, an initial yet substantial step toward
-                bridging this gap by enabling
-                LLMs to better understand and generate vector graphics. LLM4SVG facilitates a deeper understanding of
-                SVG components through <b>learnable semantic tokens</b>, which precisely encode these tokens and their
-                corresponding properties to generate semantically aligned SVG outputs. Using a series of learnable
-                semantic tokens, a structured dataset for instruction following is developed to support comprehension
-                and generation across two primary tasks. Our method introduces a modular architecture to existing large
-                language models, integrating semantic tags, vector instruction encoders, fine-tuned commands, and
-                powerful LLMs to tightly combine geometric, appearance, and language information. To overcome the
-                scarcity of <b>SVG-text instruction data</b>, we developed an automated data generation pipeline that
-                collected
-                a massive dataset of more than 250k SVG data and 580k SVG-text instructions, which facilitated the
-                adoption of the two-stage training strategy popular in LLM development. By exploring various training
-                strategies, we developed LLM4SVG, which significantly moves beyond optimized rendering-based approaches
-                and language-model-based baselines to achieve remarkable results in human evaluation tasks.
+                The unprecedented advancements in Large Language Models (LLMs) have
+                profoundly impacted natural language processing but have yet to
+                fully embrace the realm of scalable vector graphics (SVG)
+                generation. While LLMs encode partial knowledge of SVG data from web
+                pages during training, recent findings suggest that semantically
+                ambiguous and tokenized representations within
+                <b
+                >LLMs may result in hallucinations in vector primitive
+                    predictions</b
+                >. Additionally, LLM training typically lacks modeling and
+                understanding of the rendering sequence of vector paths, which can
+                lead to occlusion between output vector primitives. In this paper,
+                we present <b style="color: #7e57c2">LLM4SVG</b>, an initial yet
+                substantial step toward bridging this gap by enabling LLMs to better
+                understand and generate vector graphics.
+                <b style="color: #7e57c2">LLM4SVG</b> facilitates a deeper
+                understanding of SVG components through
+                <b>learnable semantic tokens</b>, which precisely encode these
+                tokens and their corresponding properties to generate semantically
+                aligned SVG outputs. Using a series of learnable semantic tokens, a
+                structured dataset for instruction following is developed to support
+                comprehension and generation across two primary tasks. Our method
+                introduces a modular architecture to existing large language models,
+                integrating semantic tags, vector instruction encoders, fine-tuned
+                commands, and powerful LLMs to tightly combine geometric,
+                appearance, and language information. To overcome the scarcity of
+                <b>SVG-text instruction data</b>, we developed an automated data
+                generation pipeline that collected a massive dataset of more than
+                250k SVG data and 580k SVG-text instructions, which facilitated the
+                adoption of the two-stage training strategy popular in LLM
+                development. By exploring various training strategies, we developed
+                <b style="color: #7e57c2">LLM4SVG</b>, which significantly moves
+                beyond optimized rendering-based approaches and language-model-based
+                baselines to achieve remarkable results in human evaluation tasks.
             </p>
         </div>
     </div>
-    <br>
+    <br/>
 
     <!-- Online Demo -->
     <!--    <div class="card">-->
@@ -287,21 +368,968 @@
         <div class="card-body">
             <h2 class="card-title card-title-margin">SVG Generation | Gallery</h2>
             <hr class="body-hr"/>
-            <!--            <p class="card-text">-->
-            <!--                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo-->
-            <!--                dapibus sit amet.-->
-            <!--            </p>-->
-            <div class="text-center">
-                <figure class="figure">
-                    <img src="assets/gallery.png"
-                         class="figure-img img-fluid rounded"
-                         alt="method">
-                    <!--                    <figcaption class="figure-caption">A caption for the above image.</figcaption>-->
-                </figure>
+            <div class="container-fluid px-4">
+                <!-- Loading spinner -->
+                <div id="loading-spinner" class="text-center my-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading gallery...</p>
+                </div>
+
+                <div class="row g-4" id="gallery-grid">
+                    <!-- Gallery items will be dynamically added here -->
+                </div>
+
+                <!-- Add More Results button -->
+                <div
+                        id="more-results-container"
+                        class="text-center mt-4 mb-3"
+                        style="display: none"
+                >
+                    <button id="more-results-btn" class="btn btn-primary">
+                        <span>Load More Results</span>
+                        <span
+                                class="spinner-border spinner-border-sm ms-2 d-none"
+                                role="status"
+                                aria-hidden="true"
+                        ></span>
+                    </button>
+                </div>
             </div>
+
+            <!-- Modal for preview -->
+            <div
+                    class="modal fade"
+                    id="previewModal"
+                    tabindex="-1"
+                    aria-labelledby="previewModalLabel"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog modal-xl modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header border-bottom-0">
+                            <h5 class="modal-title" id="previewModalLabel">
+                                SVG Preview
+                            </h5>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-4">
+                                <div class="col-12 col-md-6 position-relative">
+                                    <div class="preview-section">
+                                        <div class="preview-card">
+                                            <div class="preview-card-inner">
+                                                <div id="preview-image"></div>
+                                            </div>
+                                        </div>
+                                        <!-- Navigation buttons -->
+                                        <button
+                                                class="nav-btn prev-btn"
+                                                onclick="navigateGallery(-1)"
+                                        >
+                                            <i class="bi bi-chevron-left"></i>
+                                        </button>
+                                        <button
+                                                class="nav-btn next-btn"
+                                                onclick="navigateGallery(1)"
+                                        >
+                                            <i class="bi bi-chevron-right"></i>
+                                        </button>
+                                        <div class="caption-card mt-3">
+                                            <p id="preview-caption" class="text-center mb-0"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="svg-code-container h-100">
+                                        <div class="code-header">
+                                            <span>SVG Source Code</span>
+                                            <button
+                                                    class="btn btn-sm btn-outline-primary copy-btn"
+                                                    onclick="copySVGCode()"
+                                            >
+                                                <i class="bi bi-clipboard"></i> Copy
+                                            </button>
+                                        </div>
+                                        <div class="code-content-wrapper">
+                                            <div class="line-numbers" id="line-numbers"></div>
+                                            <div class="code-content" id="svg-code"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                .gallery-item {
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    background: white;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    overflow: hidden;
+                    height: 0;
+                    padding-bottom: 100%; /* 使容器保持1:1的宽高比 */
+                    position: relative;
+                }
+
+                .gallery-item:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                }
+
+                .gallery-item img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    padding: 12px;
+                    background: #f8f9fa;
+                    border-radius: 8px;
+                }
+
+                /* Navigation buttons */
+                .nav-btn {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: rgba(255, 255, 255, 0.9);
+                    border: none;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                }
+
+                .nav-btn:hover {
+                    background: white;
+                    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+                }
+
+                .prev-btn {
+                    left: 10px;
+                }
+
+                .next-btn {
+                    right: 10px;
+                }
+
+                .nav-btn i {
+                    font-size: 1.2rem;
+                    color: #333;
+                }
+
+                .nav-btn:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
+
+                /* Modal styles */
+                .modal-content {
+                    border: none;
+                    border-radius: 12px;
+                    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+                }
+
+                .preview-section {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    max-width: 400px; /* 从600px减小到400px */
+                    margin: 0 auto;
+                }
+
+                .preview-card {
+                    background: white;
+                    border-radius: 8px;
+                    padding: 20px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    width: 100%;
+                    padding-bottom: 100%;
+                    max-width: 400px; /* 从600px减小到400px */
+                    max-height: 400px; /* 从600px减小到400px */
+                }
+
+                .preview-card-inner {
+                    position: absolute;
+                    top: 20px;
+                    left: 20px;
+                    right: 20px;
+                    bottom: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #f8f9fa;
+                    border-radius: 4px;
+                    overflow: hidden;
+                }
+
+                /* 预览图像容器样式 */
+                #preview-image {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                    background-color: #f8f9fa;
+                }
+
+                #preview-image svg {
+                    width: 100% !important;
+                    height: 100% !important;
+                    display: block;
+                    object-fit: contain;
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+
+                .svg-code-container {
+                    background: #f8f9fa;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
+
+                .code-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 12px 16px;
+                    background: #e9ecef;
+                    border-bottom: 1px solid #dee2e6;
+                }
+
+                .copy-btn {
+                    padding: 4px 12px;
+                    font-size: 0.875rem;
+                }
+
+                .copy-btn i {
+                    margin-right: 4px;
+                }
+
+                .code-content-wrapper {
+                    display: flex;
+                    flex-direction: row;
+                    flex-grow: 1;
+                    overflow: auto;
+                    position: relative;
+                    max-height: 450px;
+                    font-family: "Menlo", Monaco, Consolas, "Courier New", monospace;
+                }
+
+                .line-numbers {
+                    padding: 8px 8px 8px 16px;
+                    background-color: #f1f1f1;
+                    border-right: 1px solid #ddd;
+                    text-align: right;
+                    font-family: "Menlo", Monaco, Consolas, "Courier New", monospace;
+                    font-size: 0.9rem;
+                    color: #999;
+                    user-select: none;
+                    min-width: 40px;
+                    flex-shrink: 0;
+                    position: static;
+                    overflow: visible;
+                }
+
+                .code-content {
+                    padding: 8px 16px 8px 8px;
+                    flex-grow: 1;
+                    font-family: "Menlo", Monaco, Consolas, "Courier New", monospace;
+                    font-size: 0.9rem;
+                    overflow: visible;
+                }
+
+                .line-number,
+                .code-line {
+                    padding: 2px 0;
+                    line-height: 1.5;
+                    box-sizing: border-box;
+                    white-space: pre-wrap;
+                    word-break: break-all;
+                }
+
+                .line-container {
+                    display: flex;
+                    width: 100%;
+                }
+
+                .active-line {
+                    background-color: rgba(65, 105, 225, 0.2);
+                    font-weight: bold;
+                    color: #333;
+                }
+
+                .svg-highlight {
+                    stroke: #ff6b6b !important;
+                    stroke-width: 2px !important;
+                    filter: drop-shadow(0 0 3px rgba(255, 107, 107, 0.7)) !important;
+                }
+
+                .svg-highlight[fill]:not([fill="none"]) {
+                    fill-opacity: 0.8 !important;
+                }
+
+                @media (max-width: 767px) {
+                    .modal-body {
+                        padding: 1rem;
+                    }
+
+                    .preview-section {
+                        margin-bottom: 1rem;
+                        max-width: 100%;
+                    }
+
+                    .preview-card {
+                        max-width: 100%;
+                        max-height: none;
+                    }
+
+                    .line-numbers {
+                        height: auto;
+                    }
+
+                    .svg-code-container {
+                        max-height: 200px;
+                    }
+                }
+
+                @media (min-width: 768px) {
+                    .modal-dialog {
+                        max-width: 80%;
+                        margin: 1.75rem auto;
+                    }
+
+                    .preview-section {
+                        height: auto;
+                        max-height: none;
+                    }
+
+                    .svg-code-container {
+                        height: auto;
+                        max-height: 450px;
+                    }
+
+                    .line-numbers {
+                        height: auto;
+                    }
+                }
+
+                .code-content-wrapper::-webkit-scrollbar {
+                    width: 8px;
+                }
+
+                .code-content-wrapper::-webkit-scrollbar-track {
+                    background: #f1f1f1;
+                    border-radius: 4px;
+                }
+
+                .code-content-wrapper::-webkit-scrollbar-thumb {
+                    background: #888;
+                    border-radius: 4px;
+                }
+
+                .code-content-wrapper::-webkit-scrollbar-thumb:hover {
+                    background: #555;
+                }
+
+                .gallery-col {
+                    flex: 0 0 16.666667%;
+                    max-width: 16.666667%;
+                    padding: 0.5rem;
+                }
+
+                @media (min-width: 768px) {
+                    .gallery-col {
+                        flex: 0 0 10%;
+                        max-width: 10%;
+                    }
+                }
+            </style>
+
+            <script>
+                let currentImageIndex = 0;
+                let galleryItems = [];
+                let allImagesLoaded = false;
+                const totalItems = 109;
+                const initialDisplayCount = 20;
+                let loadedIndices = new Set();
+
+                // Function to copy SVG code
+                function copySVGCode() {
+                    // 获取原始SVG代码文本（不包含行号和HTML元素）
+                    const codeLines = Array.from(
+                        document.querySelectorAll(".code-line")
+                    ).map((line) => line.textContent);
+                    const svgCode = codeLines.join("\n");
+
+                    navigator.clipboard.writeText(svgCode).then(() => {
+                        const copyBtn = document.querySelector(".copy-btn");
+                        copyBtn.innerHTML = '<i class="bi bi-check2"></i> Copied!';
+                        setTimeout(() => {
+                            copyBtn.innerHTML = '<i class="bi bi-clipboard"></i> Copy';
+                        }, 2000);
+                    });
+                }
+
+                // Function to navigate through gallery
+                function navigateGallery(direction) {
+                    currentImageIndex =
+                        (currentImageIndex + direction + galleryItems.length) %
+                        galleryItems.length;
+                    const item = galleryItems[currentImageIndex];
+                    if (item) {
+                        const svgText = decodeURIComponent(item.dataset.svg);
+                        const caption = decodeURIComponent(item.dataset.caption);
+                        updatePreview(svgText, caption);
+                    }
+                }
+
+                // Function to show preview
+                function showPreview(svgText, caption, clickedItem) {
+                    currentImageIndex = Array.from(galleryItems).indexOf(clickedItem);
+
+                    // 在显示modal前清除旧内容
+                    const previewImage = document.getElementById("preview-image");
+                    const svgCode = document.getElementById("svg-code");
+                    const previewCaption = document.getElementById("preview-caption");
+
+                    // 清除旧内容
+                    previewImage.innerHTML = "";
+                    svgCode.textContent = svgText;
+                    previewCaption.textContent = caption;
+
+                    const modal = new bootstrap.Modal(
+                        document.getElementById("previewModal")
+                    );
+                    const modalElement = document.getElementById("previewModal");
+
+                    // 在modal开始显示时就准备更新内容
+                    modalElement.addEventListener(
+                        "show.bs.modal",
+                        function onModalShow() {
+                            modalElement.removeEventListener(
+                                "show.bs.modal",
+                                onModalShow
+                            );
+                        }
+                    );
+
+                    // 添加modal显示后的事件处理
+                    modalElement.addEventListener(
+                        "shown.bs.modal",
+                        function onModalShown() {
+                            // 开始准备SVG
+                            prepareSvgForPreview(svgText);
+                            modalElement.removeEventListener(
+                                "shown.bs.modal",
+                                onModalShown
+                            );
+                        }
+                    );
+
+                    // 添加modal隐藏后的事件处理
+                    modalElement.addEventListener(
+                        "hidden.bs.modal",
+                        function onModalHidden() {
+                            // 重置当前图片索引
+                            currentImageIndex = -1;
+                            // 清除预览内容
+                            previewImage.innerHTML = "";
+                            svgCode.textContent = "";
+                            previewCaption.textContent = "";
+                            modalElement.removeEventListener(
+                                "hidden.bs.modal",
+                                onModalHidden
+                            );
+                        }
+                    );
+
+                    modal.show();
+                }
+
+                // Function to update preview content
+                function updatePreview(svgText, caption) {
+                    const previewImage = document.getElementById("preview-image");
+                    const svgCode = document.getElementById("svg-code");
+                    const previewCaption = document.getElementById("preview-caption");
+
+                    // 更新文本内容
+                    svgCode.textContent = svgText;
+                    previewCaption.textContent = caption;
+
+                    // 确保在下一帧更新SVG
+                    requestAnimationFrame(() => {
+                        // 等待一小段时间确保DOM已更新
+                        setTimeout(() => {
+                            prepareSvgForPreview(svgText);
+                        }, 50);
+                    });
+                }
+
+                // Function to prepare SVG for preview
+                function prepareSvgForPreview(svgText) {
+                    const tempDiv = document.createElement("div");
+                    tempDiv.innerHTML = svgText;
+                    const svgElement = tempDiv.querySelector("svg");
+
+                    if (svgElement) {
+                        // 先设置viewBox
+                        const originalWidth = parseFloat(
+                            svgElement.getAttribute("width") ||
+                            svgElement.width.baseVal.value ||
+                            100
+                        );
+                        const originalHeight = parseFloat(
+                            svgElement.getAttribute("height") ||
+                            svgElement.height.baseVal.value ||
+                            100
+                        );
+
+                        if (!svgElement.getAttribute("viewBox")) {
+                            svgElement.setAttribute(
+                                "viewBox",
+                                `0 0 ${originalWidth} ${originalHeight}`
+                            );
+                        }
+
+                        // 修改：设置SVG填充整个容器
+                        svgElement.style.width = "100%";
+                        svgElement.style.height = "100%";
+                        svgElement.style.maxWidth = "100%";
+                        svgElement.style.maxHeight = "100%";
+                        svgElement.style.display = "block";
+                        svgElement.style.position = "absolute";
+                        svgElement.style.top = "0";
+                        svgElement.style.left = "0";
+                        svgElement.style.right = "0";
+                        svgElement.style.bottom = "0";
+                        svgElement.style.margin = "auto";
+                        svgElement.style.objectFit = "contain";
+
+                        const previewImage = document.getElementById("preview-image");
+                        if (!previewImage) return; // 安全检查
+
+                        previewImage.innerHTML = tempDiv.innerHTML;
+
+                        // 格式化并显示代码
+                        formatAndDisplayCode(svgText);
+                    }
+                }
+
+                // 修改formatAndDisplayCode函数，使用表格布局方式来确保行号和代码同步滚动
+                function formatAndDisplayCode(svgText) {
+                    const svgCode = document.getElementById("svg-code");
+                    const lineNumbers = document.getElementById("line-numbers");
+
+                    // 清空现有内容
+                    svgCode.innerHTML = "";
+                    lineNumbers.innerHTML = "";
+
+                    // 分割SVG代码为行
+                    const lines = svgText.split("\n");
+
+                    // 使用绝对定位的方式添加行号和代码行
+                    lines.forEach((line, index) => {
+                        // 创建行号
+                        const lineNumber = document.createElement("div");
+                        lineNumber.textContent = index + 1;
+                        lineNumber.className = "line-number";
+                        lineNumber.id = `line-num-${index}`;
+                        lineNumbers.appendChild(lineNumber);
+
+                        // 创建代码行
+                        const lineElement = document.createElement("div");
+                        lineElement.className = "code-line";
+                        lineElement.textContent = line;
+                        lineElement.dataset.line = index;
+                        lineElement.id = `code-line-${index}`;
+
+                        // 添加鼠标事件（保持现有功能）
+                        lineElement.addEventListener("mouseenter", function () {
+                            highlightSvgElement(line);
+                            lineNumber.classList.add("active-line");
+                        });
+
+                        lineElement.addEventListener("mouseleave", function () {
+                            removeHighlight();
+                            if (!document.querySelector(".code-line.active")) {
+                                lineNumber.classList.remove("active-line");
+                            }
+                        });
+
+                        lineElement.addEventListener("click", function () {
+                            const allCodeLines = document.querySelectorAll(".code-line");
+                            const allLineNumbers =
+                                document.querySelectorAll(".line-number");
+
+                            // 移除所有高亮
+                            allCodeLines.forEach((el) => el.classList.remove("active"));
+                            allLineNumbers.forEach((el) =>
+                                el.classList.remove("active-line")
+                            );
+
+                            // 添加当前行的高亮
+                            this.classList.add("active");
+                            lineNumber.classList.add("active-line");
+
+                            // 保持高亮状态直到点击其他行
+                            highlightSvgElement(line, true);
+                        });
+
+                        svgCode.appendChild(lineElement);
+                    });
+
+                    // 确保初始行高匹配
+                    setTimeout(adjustLineHeights, 50);
+
+                    // 为code-content-wrapper添加滚动同步事件
+                    const wrapper = document.querySelector(".code-content-wrapper");
+
+                    // 清除之前的事件监听
+                    wrapper.removeEventListener("scroll", handleScroll);
+
+                    // 添加新的滚动事件监听
+                    wrapper.addEventListener("scroll", handleScroll);
+                }
+
+                // 改进handleScroll函数，确保滚动同步
+                function handleScroll(e) {
+                    // 在滚动时重新调整行高以确保同步
+                    requestAnimationFrame(adjustLineHeights);
+                }
+
+                // 改进adjustLineHeights函数，确保行号与代码行精确对齐
+                function adjustLineHeights() {
+                    const codeLines = document.querySelectorAll(".code-line");
+                    const lineNumbers = document.querySelectorAll(".line-number");
+
+                    if (codeLines.length !== lineNumbers.length) return;
+
+                    codeLines.forEach((line, index) => {
+                        const height = line.offsetHeight;
+                        const top = line.offsetTop;
+                        lineNumbers[index].style.height = `${height}px`;
+                        lineNumbers[index].style.top = `${top}px`;
+                        lineNumbers[index].style.position = "absolute";
+                    });
+                }
+
+                // 添加新函数：高亮SVG元素
+                function highlightSvgElement(codeLine, isPersistent = false) {
+                    // 移除之前的非持久化高亮
+                    if (!isPersistent) {
+                        removeHighlight(false);
+                    } else {
+                        // 如果是持久化高亮，移除所有高亮
+                        removeHighlight(true);
+                    }
+
+                    // 从代码行提取元素信息
+                    let elementId = null;
+                    let elementTag = null;
+
+                    // 提取ID
+                    const idMatch = codeLine.match(/id=["']([^"']*)["']/);
+                    if (idMatch) elementId = idMatch[1];
+
+                    // 提取标签类型
+                    const tagMatch = codeLine.match(/<([a-z][a-z0-9]*)/i);
+                    if (tagMatch) elementTag = tagMatch[1];
+
+                    // 获取SVG预览元素
+                    const previewSvg = document.querySelector("#preview-image svg");
+                    if (!previewSvg) return;
+
+                    let targetElements = [];
+
+                    // 优先通过ID查找
+                    if (elementId) {
+                        const element = previewSvg.querySelector(`#${elementId}`);
+                        if (element) targetElements.push(element);
+                    }
+                    // 如果没有ID或找不到元素，尝试通过标签查找
+                    else if (elementTag && !targetElements.length) {
+                        // 仅尝试匹配可能与当前行相关的标签
+                        // 这里使用一个启发式方法：查找行中包含的主要属性值
+                        const attributeValues = [];
+                        const attrMatches = codeLine.matchAll(
+                            /\s([a-z0-9-]+)=["']([^"']*)["']/gi
+                        );
+                        for (const match of attrMatches) {
+                            attributeValues.push({attr: match[1], value: match[2]});
+                        }
+
+                        // 获取所有匹配标签的元素
+                        const elements = previewSvg.querySelectorAll(elementTag);
+
+                        if (attributeValues.length > 0) {
+                            // 筛选具有匹配属性值的元素
+                            for (const element of elements) {
+                                let matchCount = 0;
+                                for (const {attr, value} of attributeValues) {
+                                    if (element.getAttribute(attr) === value) {
+                                        matchCount++;
+                                    }
+                                }
+                                // 如果至少匹配一个属性，则添加到目标元素列表
+                                if (matchCount > 0) {
+                                    targetElements.push(element);
+                                }
+                            }
+                        } else if (elements.length === 1) {
+                            // 如果只有一个元素，且没有其他信息，则默认使用它
+                            targetElements.push(elements[0]);
+                        }
+                    }
+
+                    // 应用高亮样式
+                    targetElements.forEach((element) => {
+                        element.classList.add("svg-highlight");
+                        if (isPersistent) {
+                            element.classList.add("svg-highlight-persistent");
+                        }
+                    });
+                }
+
+                // 添加新函数：移除高亮效果
+                function removeHighlight(removeAll = false) {
+                    const previewSvg = document.querySelector("#preview-image svg");
+                    if (!previewSvg) return;
+
+                    if (removeAll) {
+                        // 移除所有高亮
+                        previewSvg.querySelectorAll(".svg-highlight").forEach((el) => {
+                            el.classList.remove(
+                                "svg-highlight",
+                                "svg-highlight-persistent"
+                            );
+                        });
+                    } else {
+                        // 只移除非持久化高亮
+                        previewSvg
+                            .querySelectorAll(
+                                ".svg-highlight:not(.svg-highlight-persistent)"
+                            )
+                            .forEach((el) => {
+                                el.classList.remove("svg-highlight");
+                            });
+                    }
+                }
+
+                // 在模态框关闭时清除所有高亮状态
+                document
+                    .getElementById("previewModal")
+                    .addEventListener("hidden.bs.modal", function () {
+                        document
+                            .querySelectorAll(".svg-highlight, .svg-highlight-persistent")
+                            .forEach((el) => {
+                                el.classList.remove(
+                                    "svg-highlight",
+                                    "svg-highlight-persistent"
+                                );
+                            });
+                    });
+
+                // Get random indices for initial display
+                function getRandomIndices(max, count) {
+                    const indices = new Set();
+                    while (indices.size < count) {
+                        const randomIndex = Math.floor(Math.random() * max) + 1;
+                        indices.add(randomIndex);
+                    }
+                    return Array.from(indices);
+                }
+
+                // Function to load a single gallery item
+                async function loadGalleryItem(index) {
+                    try {
+                        const svgResponse = await fetch(
+                            `gallery/svg/LLM4SVG_${index}.svg`
+                        );
+                        if (!svgResponse.ok) return null;
+
+                        const captionResponse = await fetch(
+                            `gallery/captions/caption_${index}.txt`
+                        );
+                        if (!captionResponse.ok) return null;
+
+                        const svgText = await svgResponse.text();
+                        const caption = await captionResponse.text();
+
+                        const col = document.createElement("div");
+                        col.className = "gallery-col";
+                        col.innerHTML = `
+                  <div class="gallery-item" data-svg="${encodeURIComponent(
+                            svgText
+                        )}"
+                       data-caption="${encodeURIComponent(caption)}">
+                    <img src="gallery/svg/LLM4SVG_${index}.svg" alt="SVG ${index}" class="img-fluid">
+                  </div>
+                `;
+
+                        return col;
+                    } catch (error) {
+                        console.error(`Error loading item ${index}:`, error);
+                        return null;
+                    }
+                }
+
+                // Function to load initial gallery data
+                async function loadInitialGallery() {
+                    const galleryGrid = document.getElementById("gallery-grid");
+                    const loadingSpinner = document.getElementById("loading-spinner");
+                    const moreResultsContainer = document.getElementById(
+                        "more-results-container"
+                    );
+
+                    try {
+                        // Get random indices for initial display
+                        const randomIndices = getRandomIndices(
+                            totalItems,
+                            initialDisplayCount
+                        );
+                        loadedIndices = new Set(randomIndices);
+
+                        // Load and add random items
+                        const itemPromises = randomIndices.map((index) =>
+                            loadGalleryItem(index)
+                        );
+                        const items = await Promise.all(itemPromises);
+
+                        items.forEach((item) => {
+                            if (item) galleryGrid.appendChild(item);
+                        });
+
+                        // Show the "More Results" button
+                        moreResultsContainer.style.display = "block";
+                    } catch (error) {
+                        console.error("Error loading initial gallery:", error);
+                    } finally {
+                        loadingSpinner.style.display = "none";
+                        // Store all gallery items after loading
+                        galleryItems = document.querySelectorAll(".gallery-item");
+                    }
+                }
+
+                // Function to load all remaining gallery items
+                async function loadAllGalleryItems() {
+                    const galleryGrid = document.getElementById("gallery-grid");
+                    const moreResultsBtn =
+                        document.getElementById("more-results-btn");
+                    const spinner = moreResultsBtn.querySelector(".spinner-border");
+
+                    // Show loading state
+                    moreResultsBtn.disabled = true;
+                    moreResultsBtn.querySelector("span:first-child").textContent =
+                        "Loading...";
+                    spinner.classList.remove("d-none");
+
+                    try {
+                        const remainingIndices = [];
+                        for (let i = 1; i <= totalItems; i++) {
+                            if (!loadedIndices.has(i)) {
+                                remainingIndices.push(i);
+                            }
+                        }
+
+                        // Load items in batches to avoid overwhelming the browser
+                        const batchSize = 20;
+                        for (let i = 0; i < remainingIndices.length; i += batchSize) {
+                            const batch = remainingIndices.slice(i, i + batchSize);
+                            const itemPromises = batch.map((index) =>
+                                loadGalleryItem(index)
+                            );
+                            const items = await Promise.all(itemPromises);
+
+                            items.forEach((item) => {
+                                if (item) galleryGrid.appendChild(item);
+                            });
+
+                            // Brief pause between batches
+                            await new Promise((resolve) => setTimeout(resolve, 100));
+                        }
+
+                        allImagesLoaded = true;
+                        moreResultsBtn.style.display = "none";
+                    } catch (error) {
+                        console.error("Error loading all gallery items:", error);
+                        // Reset button state on error
+                        moreResultsBtn.disabled = false;
+                        moreResultsBtn.querySelector("span:first-child").textContent =
+                            "Load More Results";
+                        spinner.classList.add("d-none");
+                    } finally {
+                        // Update gallery items collection
+                        galleryItems = document.querySelectorAll(".gallery-item");
+                    }
+                }
+
+                // Add keyboard navigation
+                document.addEventListener("keydown", (e) => {
+                    if (
+                        document
+                            .getElementById("previewModal")
+                            .classList.contains("show")
+                    ) {
+                        if (e.key === "ArrowLeft") {
+                            navigateGallery(-1);
+                        } else if (e.key === "ArrowRight") {
+                            navigateGallery(1);
+                        }
+                    }
+                });
+
+                // Add event listeners
+                document.addEventListener("DOMContentLoaded", () => {
+                    loadInitialGallery();
+
+                    document
+                        .getElementById("gallery-grid")
+                        .addEventListener("click", (e) => {
+                            const item = e.target.closest(".gallery-item");
+                            if (item) {
+                                const svgText = decodeURIComponent(item.dataset.svg);
+                                const caption = decodeURIComponent(item.dataset.caption);
+                                showPreview(svgText, caption, item);
+                            }
+                        });
+
+                    // Add event listener for "More Results" button
+                    document
+                        .getElementById("more-results-btn")
+                        .addEventListener("click", loadAllGalleryItems);
+                });
+            </script>
         </div>
     </div>
-    <br>
+    <br/>
 
     <!-- Methodology -->
     <div class="card border-0">
@@ -309,29 +1337,39 @@
             <h2 class="card-title card-title-margin">Methodology</h2>
             <hr class="body-hr"/>
             <p class="card-text">
-                Our LLM4SVG is capable of understanding and generating SVGs effectively. <b>(1)</b> During the
-                training phase, we provide both the original SVG code $\mathbf{X}_{\mathrm{v}}$ and the corresponding
-                instruction data $\mathbf{X}_{\mathrm{inst}}$ as input. For the understanding task, we use detailed
-                descriptions$\mathbf{X}_{\mathrm{a}}$ generated by GPT-4 as the training labels. For the
-                generation task, the SVG code portion is masked and serves as the target that the model needs to
-                predict. <b>(2)</b> During the inference phase, for the understanding task, given an SVG source code,
-                the model generates a description that aligns with the semantics expressed by the SVG. For the
-                generation task, the model generates an SVG based on the input text prompt. During both training and
-                inference phases, the rendered image $\mathbf{X}_{\mathrm{img}}$ of the SVG can be used as conditional
-                input to the model, guiding the content that the model understands or generates.
+                Our <b style="color: #7e57c2">LLM4SVG</b> is capable of
+                understanding and generating SVGs effectively. <b>(1)</b> During the
+                training phase, we provide both the original SVG code
+                \(\mathbf{X}_{\mathrm{v}}\) and the corresponding instruction data
+                \(\mathbf{X}_{\mathrm{inst}}\) as input. For the understanding task,
+                we use detailed descriptions \(\mathbf{X}_{\mathrm{a}}\) generated
+                by GPT-4 as the training labels. For the generation task, the SVG
+                code portion is masked and serves as the target that the model needs
+                to predict. <b>(2)</b> During the inference phase, for the
+                understanding task, given an SVG source code, the model generates a
+                description that aligns with the semantics expressed by the SVG. For
+                the generation task, the model generates an SVG based on the input
+                text prompt. During both training and inference phases, the rendered
+                image \(\mathbf{X}_{\mathrm{img}}\) of the SVG can be used as
+                conditional input to the model, guiding the content that the model
+                understands or generates.
             </p>
             <div class="text-center">
                 <figure class="figure">
-                    <img src="assets/pipe.png"
-                         class="figure-img img-fluid rounded"
-                         width="90%"
-                         alt="method">
-                    <figcaption class="figure-caption">An Overview of LLM4SVG</figcaption>
+                    <img
+                            src="assets/pipe.png"
+                            class="figure-img img-fluid rounded"
+                            width="90%"
+                            alt="method"
+                    />
+                    <figcaption class="figure-caption">
+                        An Overview of <b style="color: #7e57c2">LLM4SVG</b>.
+                    </figcaption>
                 </figure>
             </div>
         </div>
     </div>
-    <br>
+    <br/>
 
     <!-- Comparison -->
     <div class="card border-0">
@@ -340,72 +1378,102 @@
             <hr class="body-hr"/>
             <div class="text-center">
                 <figure class="figure">
-                    <img src="assets/compare.png"
-                         class="figure-img img-fluid rounded"
-                         alt="method">
+                    <img
+                            src="assets/compare.png"
+                            class="figure-img img-fluid rounded"
+                            alt="method"
+                    />
                     <figcaption class="figure-caption">
-                        Qualitative Comparison Between LLM4SVG and State-of-the-Art SVG Generation Methods, including
-                        optimization-based and LLM-based methods. <br/>
-                        Figure above illustrates the visual quality of SVG generation methods, comparing
-                        both optimization-based and LLM-based approaches. It is evident that our method outperforms
-                        other LLM-based methods in terms of the completeness of the SVG generation, the selection and
-                        placement of primitives, and the semantic richness conveyed by the vector graphics.
-                        Optimization-based
-                        methods use samples from the Latent Diffusion Model as supervision during the SVG generation
-                        process.
-                        Consequently, these methods normally employ a large number of overlapping and interwoven
-                        primitives to closely approximate the realistic samples.
-                        This often lead to excessive stroke redundancy, and the individual shapes of the primitives may
-                        appear irregular when viewed in isolation, making them less practical for use in real-life
-                        applications.
+                        Qualitative Comparison Between
+                        <b style="color: #7e57c2">LLM4SVG</b> and State-of-the-Art SVG
+                        Generation Methods, including optimization-based and LLM-based
+                        methods. <br/>
+                        <p style="text-align: left">
+                            Figure above illustrates the visual quality of SVG generation
+                            methods, comparing both optimization-based and LLM-based
+                            approaches. It is evident that our method outperforms other
+                            LLM-based methods in terms of the completeness of the SVG
+                            generation, the selection and placement of primitives, and the
+                            semantic richness conveyed by the vector graphics.
+                            Optimization-based methods use samples from the Latent
+                            Diffusion Model as supervision during the SVG generation
+                            process. Consequently, these methods normally employ a large
+                            number of overlapping and interwoven primitives to closely
+                            approximate the realistic samples. This often lead to
+                            excessive stroke redundancy, and the individual shapes of the
+                            primitives may appear irregular when viewed in isolation,
+                            making them less practical for use in real-life applications.
+                        </p>
                     </figcaption>
                 </figure>
             </div>
         </div>
     </div>
-    <br>
+    <br/>
 
     <!-- Citation -->
     <div class="card border-0">
         <div class="card-body">
             <h2 class="card-title card-title-margin">Citation</h2>
             <p id="bibtex" class="card-text" style="border: #1a1c20 1px">
-                <code> @article{xing2024llm4svg,<br>
-                    &nbsp;&nbsp;title={Empowering LLMs to Understand and Generate Complex Vector Graphics},<br>
-                    &nbsp;&nbsp;author={Xing, Ximing and Hu, Juncheng and Liang, Guotao and Zhang, Jing and Xu, Dong and
-                    Yu, Qian},<br>
-                    &nbsp;&nbsp;booktitle={arXiv preprint: 2412.11102},<br>
-                    &nbsp;&nbsp;year={2024}<br>
+                <code>
+                    @article{xing2024llm4svg,<br/>
+                    &nbsp;&nbsp;title={Empowering LLMs to Understand and Generate
+                    Complex Vector Graphics},<br/>
+                    &nbsp;&nbsp;author={Xing, Ximing and Hu, Juncheng and Liang,
+                    Guotao and Zhang, Jing and Xu, Dong and Yu, Qian},<br/>
+                    &nbsp;&nbsp;booktitle={arXiv preprint: 2412.11102},<br/>
+                    &nbsp;&nbsp;year={2024}<br/>
                     }
                 </code>
             </p>
 
             <!-- Bibtex (Button trigger modal)-->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    onclick="copyText()">
+            <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    onclick="copyText()"
+            >
                 Copy BibTex
             </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
+            <div
+                    class="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+            >
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Bibtex</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                Bibtex
+                            </h1>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
                         </div>
-                        <div class="bibtex modal-body">
-                            Copy Success!
-                        </div>
+                        <div class="bibtex modal-body">Copy Success!</div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                            >
+                                Close
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <br>
-
+    <br/>
 </main>
 
 <footer class="footer">
@@ -413,19 +1481,23 @@
         <div class="row align-items-center">
             <!-- left layout -->
             <div class="col-12 col-md-6 text-md-start text-center">
-                <p class="footer-title mb-0">Empowering LLMs to Understand and Generate Complex Vector Graphics</p>
+                <p class="footer-title mb-0">
+                    Empowering LLMs to Understand and Generate Complex Vector Graphics
+                </p>
             </div>
             <!-- right layout -->
             <div class="col-12 col-md-6 text-md-end text-center">
                 <p class="footer-text mb-0">
                     This webpage template was originally made by
-                    <a href="https://github.com/ximinng/GithubPages-Template" class="link-primary text-decoration-none">Ximing
-                        Xing</a>.
+                    <a
+                            href="https://github.com/ximinng/GithubPages-Template"
+                            class="link-primary text-decoration-none"
+                    >Ximing Xing</a
+                    >.
                 </p>
             </div>
         </div>
     </div>
 </footer>
-
 </body>
 </html>
